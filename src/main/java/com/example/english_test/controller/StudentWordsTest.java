@@ -4,11 +4,13 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.example.english_test.dto.Result;
 import com.example.english_test.dto.UnkonwWords;
+import com.example.english_test.dto.UserDTO;
 import com.example.english_test.entity.TestWords;
 import com.example.english_test.entity.Word;
 import com.example.english_test.entity.WordsSelect;
 import com.example.english_test.entity.WordsSelectResult;
 import com.example.english_test.service.IWordService;
+import com.example.english_test.utils.USerHolder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +27,8 @@ import java.util.List;
     @GetMapping("/wordstest")
     public Result TestWordsList()
     {
+        UserDTO user = USerHolder.getUser();
+        log.info("------------------------------------"+user.toString());
         return iWordService.get_Words_List();
     }
     /*接受前台单词选择的结果

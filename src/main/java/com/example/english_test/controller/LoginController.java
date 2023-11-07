@@ -32,7 +32,7 @@ public class LoginController {
     @PostMapping()
     public Result student_login(String studentId, String password, HttpServletRequest request, HttpServletResponse response, HttpSession session)
     {
-
+        log.info("studentId"+studentId+"------"+password);
         LambdaQueryWrapper<Student> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Student::getStudentId,studentId);
         if(studentService.count(queryWrapper)>0)
@@ -43,6 +43,8 @@ public class LoginController {
                 Student one = studentService.getOne(queryWrapper);
 
                 session.setAttribute("user",one);
+                UserDTO userDTO = BeanUtil.copyProperties(one, UserDTO.class);
+                USerHolder.saveUSer(userDTO);
                 return Result.ok("登陆成功！");
             }
             else

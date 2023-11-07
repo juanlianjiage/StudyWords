@@ -12,17 +12,44 @@
   </body>
   <link rel="stylesheet" href="/englishTestFront/css/style1.css">
   <link rel="stylesheet" href="./iconfont/iconfont.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <div class="outer_box">
   <div class="filterImg"></div>
   <div class="login_box">
-    <h1><img src="/englishTestFront/img/04.jpg" alt=""></h1>
-    <p><i class="iconfont">&#xe74f;</i><input type="text" value="用户"></p>
-    <p><i class="iconfont">&#xe774;</i><input type="text" value="密码"></p>
-    <p class="logIn_btn">登录</p>
+    <form  id="login_form" onsubmit="return false" action="##">
+      <h1><img src="/englishTestFront/img/04.jpg" alt=""></h1>
+      <p><i class="iconfont">&#xe74f;</i><input type="text" name="studentId"></p>
+      <p><i class="iconfont">&#xe774;</i><input type="text" name="password"></p>
+      <p><input type="button" class="logIn_tn" id="loginButton" value="登录" onclick="login()"></input></p>
+    </form>
     <div><span>立即注册</span><span>忘记密码</span></div>
   </div>
 </div>
 </body>
+<script>
+  function login()
+  {
+    $.ajax({
+      dataType:"json",
+      method:"POST",
+      url:"/student_login",
+      data:$('#login_form').serialize(),
+      success:function (response){
+        if (response.success){
+          window.location.href = 'main.html';
+        }
+        else {
+          alert(response.errorMsg)
+        }
+      },
+      error: function ()
+      {
+        alert("出错！")
+      }
+    });
+  }
+
+</script>
 </html>

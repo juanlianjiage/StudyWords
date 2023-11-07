@@ -21,7 +21,10 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addInterceptor(new LoginInterceptor())
                 .excludePathPatterns(
                        "/student_login",
-                        "/**"
+                        "/englishTestFront/html/login.html",
+                        "/englishTestFront/css/style1.css",
+                        "/englishTestFront/css/style.css",
+                        "/englishTestFront/img/**"
                 ).order(1);
         // token刷新的拦截器
 //        registry.addInterceptor(new RefreshInterceprot(stringRedisTemplate)).
