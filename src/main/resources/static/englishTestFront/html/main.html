@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <title>主页面</title>
+    <link rel="stylesheet" type="text/css" href="/englishTestFront/css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<div id="word-box">
+    <h1 id="word">单词</h1>
+    <div id="definition" style="display: none;"></div>
+    <div id="buttons">
+        <button class="button" id="dont-know">不认识</button>
+        <button class="button" id="know">认识</button>
+        <button class="button" id="collect">添加到生词本</button>
+        <button class="button" id="startTestButton">开始测试</button>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        var wordData = []; // 存储从后端获取的单词数据
+        var unknownWords=[];
+        // 获取单词数据并保存
+        function getWordData() {
+            if (currentIndex < wordData.length) {
+                $('#word').text(wordData[currentIndex].wordSpell);
+                currentIndex++;
+                // 隐藏词义
+                $('#definition').hide();
+            } else {
+                console.log('没有更多单词数据了');
+                $('#word').text(''); // 如果没有更多数据，清空单词显示
+            }
+        }
+
+        // 点击开始测试按钮时将数据发送到expressword.html
+        $('.button#startTestButton').on('click', function () {
+            // 将数据转换为JSON字符串
+            var jsonData = JSON.stringify(wordData);
+            console.log("将要发送的数据样式：");
+            console.log(jsonData);
+
+            // 使用LocalStorage将数据保存在本地
+            localStorage.setItem('wordData', jsonData);
+
+            // 在点击按钮后打开expressword.html页面
+            window.location.href = 'expressword.html';
+        });
+
+        // 获取后端数据并保存
+        function fetchAllWordData() {
+            $.ajax({
+                url: '/student/wordstest',
+                method: 'GET',
+                dataType: 'json',
+                success: function (response) {
+                    if (response.success) {
+                        wordData = response.data;
+                        currentIndex = 0;
+                        getWordData(); // 初始化页面，获取并显示第一个单词
+                    } else {
+                        console.log('没有更多单词数据了');
+                    }
+                },
+                error: function () {
+                    console.error('获取单词数据失败');
+                }
+            });
+        }
+
+        // 初始化页面，获取所有数据块
+        fetchAllWordData();
+
+        // 保存未知单词和词义
+        function saveUnknownWord() {
+            if (currentIndex <= wordData.length) {
+                unknownWords.push({
+                    wordId:wordData[currentIndex - 1].wordId
+                });
+            }
+        }
+        $('#collect').on('click', function () {
+            showDefinition(); // 显示词义
+            saveUnknownWord();
+        });
+        // 初始化页面，获取所有数据块
+        fetchAllWordData();
+        // 显示词义
+        function showDefinition() {
+            if (currentIndex <= wordData.length) {
+                $('#definition').text('词义：' + wordData[currentIndex - 1].wordMeaning);
+                $('#definition').show();
+            }
+        }
+        // 添加点击事件处理程序以显示词义
+        $('#dont-know').on('click', function () {
+            showDefinition(); // 显示词义
+            saveUnknownWord(); // 保存未知单词和词义
+            $('#definition').show(); // 显示词义
+        });
+
+// 添加点击事件处理程序以获取下一个单词
+        $('#know').on('click', function () {
+            getWordData(); // 获取下一个单词
+            $('#definition').hide(); // 隐藏词义
+        });
+
+        // 添加点击事件处理程序以提交记录到后端
+        $('#startTestButton').on('click', function () {
+            if (unknownWords.length > 0) {
+                var jsonData = JSON.stringify(unknownWords);
+                console.log("将要发送的数据样式：");
+                console.log(jsonData); // 输出将要发送的数据样式
+                // 发送数据到后端
+                $.ajax({
+                    url: '/student/unknownWords',
+                    method: 'POST',
+                    data: jsonData,
+                    contentType: 'application/json',
+                    success: function (response) {
+                        if (response.success) {
+                            console.log('记录成功发送到后端');
+                        } else {
+                            console.error('记录发送失败');
+                        }
+                    },
+                    error: function () {
+                        console.error('记录发送失败');
+                    }
+                });
+            }
+        });
+
+    });
+</script>
+</body>
+</html>

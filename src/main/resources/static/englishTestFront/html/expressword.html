@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <meta charset="UTF-8">
+  <title>单词测试</title>
+  <link rel="stylesheet" type="text/css" href="/englishTestFront/css/style.css">
+</head>
+
+<body>
+<div class="navbar">
+  <h1>单词测试导航栏</h1>
+</div>
+
+<div class="main-content">
+  <div id="timer">
+    <span id="time-left">5:00</span>
+    <span id="word-count">0/0</span>
+  </div>
+
+  <div class="word-box">
+    <div class="bigCell"></div>
+  </div>
+
+  <div class="meaning-box">
+    <p></p>
+  </div>
+
+  <div class="meaning-box">
+    <p></p>
+  </div>
+
+  <div class="meaning-box">
+    <p></p>
+  </div>
+
+  <div class="meaning-box">
+    <p></p>
+  </div>
+
+  <div class="buttons">
+    <button class="button" id="startButton">开始</button>
+    <button class="button" id="prevButton">上一个</button>
+    <button class="button" id="nextButton">下一个</button>
+    <button class="button" id="submitButton">提交</button>
+  </div>
+</div>
+
+<div id="wordBox">
+  <div class="smallCell" data-correct="0"></div>
+  <div class="smallCell" data-correct="0"></div>
+  <div class="smallCell" data-correct="0"></div>
+  <div class="smallCell" data-correct="0"></div>
+</div>
+
+<div id="testCompleteMessage">
+  <p>测试已完成</p>
+  <button id="testCompleteButton">确认</button>
+</div>
+<div id="gradeMessage">
+  <p>测试正确率：0%</p>
+  <button id="gradeMessageButton">确认</button>
+</div>
+
+<script>
+  $(document).ready(function () {
+    var jsonData = localStorage.getItem('wordData');
+    console.log("接收到的数据样式：");
+    console.log(jsonData);
+
+    var data = JSON.parse(jsonData);
+    var currentIndex = 0;
+    var totalWords = data.length;
+    var totalTime = 0.5 * 60;
+    var remainingTime = totalTime;
+    var isTestComplete = false;
+    var timerInterval = null;
+    var selectedMeanings = [];
+    var userTestData = [];
+
+    $('.meaning-box').on('click', function () {
+      var selectedMeaning = $(this).text().trim();
+      var correctMeaning = data[currentIndex].wordMeaning;
+      if (selectedMeaning === "") {
+        selectedMeaning = "e"; // 如果未选择，则将内容设置为 "e"
+      }
+
+      var meaningData = {
+        wordSpell: data[currentIndex].wordSpell,
+        wordMeaning: data[currentIndex].wordMeaning,
+        selectMeaning: selectedMeaning
+      };
+
+      userTestData[currentIndex] = meaningData; // 存储用户点击盒子里存放的数据
+      var isCorrect = selectedMeaning === correctMeaning;
+
+      if (isCorrect) {
+        $(this).css('background-color', 'green');
+      } else {
+        $(this).css('background-color', 'red');
+      }
+
+      // 在词义盒子内显示正确的词义
+      $(this).append('<div class="correct-meaning">' + correctMeaning + '</div>');
+
+      setTimeout(function () {
+        // 清除背景颜色和正确的词义
+        $(this).css('background-color', 'white');
+        $(this).find('.correct-meaning').remove();
+        // 在这里放置跳转到下一个数据的逻辑
+        getNextTestData();
+      }.bind(this), 1000);
+
+    });
+
+    function getRemainingTime() {
+      var minutes = Math.floor(remainingTime / 60);
+      var seconds = remainingTime % 60;
+      return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+    }
+
+    function updateTimerDisplay() {
+      $('#time-left').text(getRemainingTime());
+      if (isTestComplete) {
+        $('#word-count').text(totalWords + "/" + totalWords);
+      } else {
+        $('#word-count').text(currentIndex + "/" + totalWords);
+      }
+    }
+
+    function resetTest() {
+      currentIndex = 0;
+      selectedMeanings = [];
+      isTestComplete = false;
+      remainingTime = totalTime;
+      clearInterval(timerInterval);
+      timerInterval = setInterval(updateRemainingTime, 1000);
+      updateTimerDisplay();
+      fetchData();
+    }
+
+    $('.button#startButton').on('click', function () {
+      resetTest();
+    });
+
+    $('.button#prevButton').on('click', function () {
+      if (currentIndex > 0) {
+        currentIndex--;
+        currentTestData = data[currentIndex];
+        updateTestDataDisplay();
+        // $('#submitButton').prop('disabled', false); // 启用提交按钮
+        isTestComplete = false;
+        updateTimerDisplay();
+      }
+    });
+
+    $('.button#nextButton').on('click', function () {
+      if (currentIndex < totalWords) {
+        if (selectedMeanings[currentIndex] === undefined) {
+          var currentWord = data[currentIndex].wordSpell;
+          var currentWordMeaning = data[currentIndex].wordMeaning;
+          var wordsSelectResult = { wordSpell: currentWord, wordMeaning: currentWordMeaning, selectMeaning: 'e' };
+          selectedMeanings[currentIndex] = wordsSelectResult;
+        }
+        getNextTestData();
+      } else {
+        console.log('测试结束');
+      }
+    });
+
+    function updateTestDataDisplay() {
+      if (currentTestData) {
+        $('.bigCell').text(currentTestData.wordSpell);
+        $('.meaning-box').each(function (index) {
+          if (index < currentTestData.errorMeaning.length) {
+            $(this).find('p').text(currentTestData.errorMeaning[index]);
+          } else {
+            $(this).find('p').text(""); // 清空词义
+          }
+        });
+      }
+    }
+
+    var hasSubmitted = false;
+
+    function updateRemainingTime() {
+      if (remainingTime <= 0) {
+        clearInterval(timerInterval);
+        console.log('测试时间到');
+        if (!isTestComplete) {
+          isTestComplete = true;
+          if (!hasSubmitted) {
+            showTestCompleteMessage();
+            hasSubmitted = true;
+            $('#submitButton').trigger('click');
+          }
+        }
+        updateTimerDisplay();
+      } else {
+        remainingTime--;
+        updateTimerDisplay();
+      }
+    }
+
+    function fetchData() {
+      if (currentIndex < totalWords) {
+        currentTestData = data[currentIndex];
+        updateTestDataDisplay();
+        // $('#submitButton').prop('disabled', false); // 启用提交按钮
+        if (currentIndex === totalWords - 1) {
+          $('#submitButton').trigger('click');
+        }
+      } else {
+        console.log('没有更多测试数据了');
+        // $('#submitButton').prop('disabled', true); // 禁用提交按钮
+      }
+    }
+
+    function getNextTestData() {
+      if (isTestComplete) {
+        console.log('测试已完成');
+        return;
+      }
+      currentIndex++;
+      if (currentIndex < totalWords) {
+        currentTestData = data[currentIndex];
+        updateTestDataDisplay();
+        // $('#submitButton').prop('disabled', true); // 禁用提交按钮
+      } else {
+        console.log('测试结束');
+        // $('#submitButton').prop('disabled', true); // 禁用提交按钮
+        isTestComplete = true;
+        clearInterval(timerInterval);
+        showTestCompleteMessage();
+        $('#submitButton').trigger('click');
+        updateTimerDisplay();
+      }
+    }
+
+    function showTestCompleteMessage() {
+      $('#testCompleteMessage').show();
+    }
+
+    resetTest();
+    timerInterval = setInterval(updateRemainingTime, 1000);
+
+    // 点击提交按钮
+    $('#submitButton').on('click', function () {
+      console.log("数据开始发送");
+
+      // 将 isTestComplete 设置为 true，禁止继续做题
+      isTestComplete = true;
+      clearInterval(timerInterval); // 暂停计时器
+
+      // 显示测试结束弹窗
+      showTestCompleteMessage();
+
+      /// 创建一个数组来存储未测试的单词
+      var unattemptedWords = [];
+
+// 循环检查所有单词是否被尝试
+      for (var i = 0; i < totalWords; i++) {
+        var word = data[i].wordSpell;
+        var attempted = false;
+
+        // 检查是否已记录当前单词的点击
+        for (var j = 0; j < userTestData.length; j++) {
+          if (userTestData[j].wordSpell === word) {
+            attempted = true;
+            break;
+          }
+        }
+
+        if (!attempted) {
+          // 如果未尝试，将单词记录为未尝试的单词
+          var unattemptedWord = { wordSpell: word, wordMeaning: data[i].wordMeaning, selectMeaning: 'e' };
+          unattemptedWords.push(unattemptedWord);
+        }
+      }
+
+// 将收集的数据转换为 JSON 格式，包括未尝试的单词
+      var jsonDataWithUnattempted = JSON.stringify(userTestData.concat(unattemptedWords));
+
+// 打印要发送的数据到控制台
+      console.log("要发送到后端的数据（包括未尝试的单词）：");
+      console.log(jsonDataWithUnattempted);
+
+      // 发送数据到后端
+      $.ajax({
+        url: '/student/wordstest/submit',
+        method: 'POST',
+        data: jsonDataWithUnattempted,
+        contentType: 'application/json',
+        success: function (response) {
+          if (response.success) {
+            console.log('数据成功发送到后端');
+          } else {
+            console.error('数据发送失败');
+          }
+        },
+        error: function () {
+          console.error('数据发送失败');
+        }
+      }).then(result => {
+        console.log(result.data);
+
+        // 在这里创建一个弹窗以展示正确率
+        var gradeMessage = '测试正确率：' + result.data; // 使用返回的数据创建正确率消息
+
+        // 创建弹窗
+        var gradeMessagePopup = $('#gradeMessage');
+        gradeMessagePopup.find('p').text(gradeMessage);
+        gradeMessagePopup.show();
+
+        // 将弹窗关闭按钮的点击事件处理程序绑定到隐藏弹窗
+        gradeMessagePopup.find('#gradeMessageButton').on('click', function () {
+          gradeMessagePopup.hide();
+          // 执行页面重定向
+          window.location.href = 'main.html'; // 这里跳转到main.html
+        });
+      });
+    });
+
+    function checkMeanings() {
+      $('.meaning-box').each(function (index) {
+        var selectedMeaning = $(this).find('p').text().trim();
+        var correctMeaning = data[currentIndex].wordMeaning;
+        if (selectedMeaning === correctMeaning) {
+          $(this).css('background-color', 'green');
+        } else {
+          $(this).css('background-color', 'red');
+          $(this).find('p').text(correctMeaning);
+        }
+      });
+
+      setTimeout(function () {
+        getNextTestData();
+      }, 3000);
+    }
+
+    // 在测试完成时，输出记录的数据到控制台
+    $('#testCompleteButton').on('click', function () {
+      if (selectedMeanings.length > 0) {
+        console.log("数据开始发送");
+        // 检查是否还有未测试的单词
+        var remainingWords = totalWords - currentIndex;
+        if (remainingWords > 0) {
+          // 将未测试的单词记录为 "e"
+          for (var i = 0; i < remainingWords; i++) {
+            var wordsSelectResult = { wordSpell: '', wordMeaning: '', selectMeaning: 'e' };
+            selectedMeanings.push(wordsSelectResult);
+          }
+        }
+
+        // 将 isTestComplete 设置为 true，禁止继续做题
+        isTestComplete = true;
+        clearInterval(timerInterval); // 暂停计时器
+
+        // 显示测试结束弹窗
+        showTestCompleteMessage();
+        $('#testCompleteMessage').hide();
+      } else {
+        // 输出记录的数据
+        for (var i = 0; i < selectedMeanings.length; i++) {
+          console.log("记录 " + (i + 1) + ": " + selectedMeanings[i]);
+        }
+
+        // 重新开始测试
+        currentIndex = 0;
+        selectedMeanings = [];
+        isTestComplete = false;
+        // 重新开始计时器
+        timerInterval = setInterval(updateRemainingTime, 1000);
+
+        // 获取后端数据
+        fetchData();
+        // 隐藏测试结束弹窗
+        $('#testCompleteMessage').hide();
+
+      }
+    });
+
+  });
+</script>
+</body>
+</html>
