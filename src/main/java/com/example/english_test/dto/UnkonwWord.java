@@ -5,14 +5,11 @@ import lombok.Data;
 
 @Data
 @TableName("student_words")
-public class UnkonwWords {
+public class UnkonwWord {
     /*单词Id
     * */
-    private Integer WordId;
+    private Integer wordId;
 
     /*学生Id
-    * */
-    private String studentId;
-    /*
     * */
 }

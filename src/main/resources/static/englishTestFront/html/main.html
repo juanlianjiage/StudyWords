@@ -21,7 +21,7 @@
 <script>
     $(document).ready(function () {
         var wordData = []; // 存储从后端获取的单词数据
-        var unknownWords=[];
+        var UnKnowWord={"wordId":null};
         // 获取单词数据并保存
         function getWordData() {
             if (currentIndex < wordData.length) {
@@ -76,14 +76,16 @@
         // 保存未知单词和词义
         function saveUnknownWord() {
             if (currentIndex <= wordData.length) {
-                unknownWords.push({
-                    wordId:wordData[currentIndex - 1].wordId
-                });
+
+                UnKnowWord.wordId=wordData[currentIndex - 1].wordId
             }
         }
         $('#collect').on('click', function () {
             showDefinition(); // 显示词义
             saveUnknownWord();
+            sendUnKonwWord();
+
+
         });
         // 初始化页面，获取所有数据块
         fetchAllWordData();
@@ -107,10 +109,10 @@
             $('#definition').hide(); // 隐藏词义
         });
 
-        // 添加点击事件处理程序以提交记录到后端
-        $('#startTestButton').on('click', function () {
-            if (unknownWords.length > 0) {
-                var jsonData = JSON.stringify(unknownWords);
+
+
+        function sendUnKonwWord() {
+                var jsonData = JSON.stringify(UnKnowWord);
                 console.log("将要发送的数据样式：");
                 console.log(jsonData); // 输出将要发送的数据样式
                 // 发送数据到后端
@@ -121,7 +123,9 @@
                     contentType: 'application/json',
                     success: function (response) {
                         if (response.success) {
-                            console.log('记录成功发送到后端');
+                            alert(response.data)
+                            getWordData(); // 获取下一个单词
+                            $('#definition').hide(); // 隐藏词义
                         } else {
                             console.error('记录发送失败');
                         }
@@ -131,8 +135,6 @@
                     }
                 });
             }
-        });
-
     });
 </script>
 </body>

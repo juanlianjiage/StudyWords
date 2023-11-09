@@ -2,6 +2,7 @@ package com.example.english_test.service.serviceimpl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.english_test.dto.Result;
+import com.example.english_test.dto.stuUnkownWord;
 import com.example.english_test.entity.Word;
 import com.example.english_test.entity.WordsSelect;
 import com.example.english_test.mapper.WordMapper;

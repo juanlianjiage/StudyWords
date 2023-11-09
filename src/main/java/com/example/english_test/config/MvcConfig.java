@@ -24,7 +24,9 @@ public class MvcConfig implements WebMvcConfigurer {
                         "/englishTestFront/html/login.html",
                         "/englishTestFront/css/style1.css",
                         "/englishTestFront/css/style.css",
-                        "/englishTestFront/img/**"
+                        "/englishTestFront/img/**",
+                        "/englishTestFront/getCodeImg"
+
                 ).order(1);
         // token刷新的拦截器
 //        registry.addInterceptor(new RefreshInterceprot(stringRedisTemplate)).

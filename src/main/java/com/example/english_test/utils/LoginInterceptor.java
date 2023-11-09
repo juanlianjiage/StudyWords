@@ -8,6 +8,8 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.time.LocalDateTime;
+
 @Slf4j
 /*登录拦截器
 * */
@@ -23,8 +25,9 @@ public class LoginInterceptor implements HandlerInterceptor {
         }
         /*保存用户登录信息
         * */
-        log.info("拦截器——————————————————————"+user.toString());
-        UserDTO userDTO = BeanUtil.copyProperties(user, UserDTO.class);
+        UserDTO userDTO=BeanUtil.copyProperties(user,UserDTO.class);
+        userDTO.setLoginTime(LocalDateTime.now());
+        userDTO.setLatestLoginTime(LocalDateTime.now());
         USerHolder.saveUSer(userDTO);
         return true;
     }
@@ -32,7 +35,6 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
         /*删除用户登录信息*/
-        //TODO 用户退出登录，清除session和线程
 //        request.getSession().removeAttribute("user");
 //        USerHolder.removeUser();
     }
