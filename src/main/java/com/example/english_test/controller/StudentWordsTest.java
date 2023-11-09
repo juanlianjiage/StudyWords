@@ -5,25 +5,31 @@ import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapp
 import com.example.english_test.dto.Result;
 import com.example.english_test.dto.UnkonwWords;
 import com.example.english_test.dto.UserDTO;
-import com.example.english_test.entity.TestWords;
-import com.example.english_test.entity.Word;
-import com.example.english_test.entity.WordsSelect;
-import com.example.english_test.entity.WordsSelectResult;
+import com.example.english_test.entity.*;
+import com.example.english_test.service.IStuSelfTestService;
+import com.example.english_test.service.IStudentService;
 import com.example.english_test.service.IWordService;
 import com.example.english_test.utils.USerHolder;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.sql.Time;
 import java.text.DecimalFormat;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 @Slf4j
 @RestController
     @RequestMapping("/student")
     public class StudentWordsTest {
-        @Resource
+    @Resource
     private IWordService iWordService;
+    @Autowired
+    private IStuSelfTestService iStuSelfTestService;
     @GetMapping("/wordstest")
     public Result TestWordsList()
     {
@@ -48,11 +54,22 @@ import java.util.List;
         //TODO 插入学生自测表self_Test，需要学生id作为外键，后续实现
         /*插入学生自测表self_Test
         * */
+
         float accuracy_rate=Float.valueOf(right)/Float.valueOf(count);
         DecimalFormat decimalFormat = new DecimalFormat("#.00");
         System.out.println(wordsSelectsResult);
         String format = decimalFormat.format(accuracy_rate*100);
-        System.out.println(format);
+        //1.从Threalocal中获取学生id
+        String studentId = USerHolder.getUser().getStudentId();
+        StuSelfTest stuSelfTest = new StuSelfTest();
+        stuSelfTest.setStudentId(studentId);
+
+        stuSelfTest.setTime(LocalDateTime.now());
+        stuSelfTest.setScore(Float.valueOf(format));
+        stuSelfTest.setVocabulary(count);
+        //保存到学生自测表
+        iStuSelfTestService.save(stuSelfTest);
+
         return Result.ok("您的正确率为"+format+"%");
     }
     /*学生添加,学生生词表
