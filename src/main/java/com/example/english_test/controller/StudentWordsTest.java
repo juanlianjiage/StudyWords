@@ -1,26 +1,26 @@
 package com.example.english_test.controller;
-import cn.hutool.json.JSONObject;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
+
 import com.example.english_test.dto.Result;
-import com.example.english_test.dto.UnkonwWords;
+import com.example.english_test.dto.UnkonwWord;
 import com.example.english_test.dto.UserDTO;
 import com.example.english_test.entity.*;
 import com.example.english_test.service.IStuSelfTestService;
-import com.example.english_test.service.IStudentService;
+
+import com.example.english_test.service.IUnknowWordService;
 import com.example.english_test.service.IWordService;
 import com.example.english_test.utils.USerHolder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
+
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.sql.Time;
+
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
+
 
 @Slf4j
 @RestController
@@ -30,6 +30,9 @@ import java.util.concurrent.TimeUnit;
     private IWordService iWordService;
     @Autowired
     private IStuSelfTestService iStuSelfTestService;
+
+    @Autowired
+    private IUnknowWordService iUnknowWordService;
     @GetMapping("/wordstest")
     public Result TestWordsList()
     {
@@ -51,7 +54,7 @@ import java.util.concurrent.TimeUnit;
                 right++;
             }
         }
-        //TODO 插入学生自测表self_Test，需要学生id作为外键，后续实现
+
         /*插入学生自测表self_Test
         * */
 
@@ -75,9 +78,10 @@ import java.util.concurrent.TimeUnit;
     /*学生添加,学生生词表
     * */
     @PostMapping("/unknownWords")
-    public Result addstudentWords(@RequestBody List<UnkonwWords> unknows){
-        log.info("----------"+unknows);
+    public Result addstudentWords(@RequestBody UnkonwWord unknow){
 
-        return Result.ok();
+        log.info("----------"+unknow);
+
+        return  iUnknowWordService.saveUnkonwWords(unknow);
     }
 }

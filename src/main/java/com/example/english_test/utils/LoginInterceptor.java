@@ -23,7 +23,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         }
         /*保存用户登录信息
         * */
-        log.info("拦截器——————————————————————"+user.toString());
+
         UserDTO userDTO = BeanUtil.copyProperties(user, UserDTO.class);
         USerHolder.saveUSer(userDTO);
         return true;
@@ -32,7 +32,6 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
         /*删除用户登录信息*/
-        //TODO 用户退出登录，清除session和线程
 //        request.getSession().removeAttribute("user");
 //        USerHolder.removeUser();
     }

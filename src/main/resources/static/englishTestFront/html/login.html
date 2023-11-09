@@ -22,8 +22,19 @@
       <h1><img src="/englishTestFront/img/04.jpg" alt=""></h1>
       <p><i class="iconfont">&#xe74f;</i><input type="text" name="studentId"></p>
       <p><i class="iconfont">&#xe774;</i><input type="text" name="password"></p>
-      <P><input type="text" onclick="recevie_encode()">验证码</P>
+<!--      <P><input type="text" onclick="recevie_encode()">验证码</P>-->
+      <div class="layui-form-item">
+        <label class="layui-form-label">验证码</label>
+        <div class="layui-input-block" style="width: 200px">
+          <input type="text" required  lay-verify="required" placeholder="请输入验证码" autocomplete="off" class="layui-input" v-model="code" name="code" @blur="validateCode()" @focus="getFocus()">
+        </div>
+        <img class="code" src="/student_login/getCodeImg" onclick="changeCode()" id="codeImg">
+      </div>
+
+
       <p><input type="button" class="logIn_tn" id="loginButton" value="登录" onclick="login()"></input></p>
+
+
     </form>
     <div><span>立即注册</span><span>忘记密码</span></div>
   </div>
@@ -51,21 +62,25 @@
       }
     });
   }
-  function recevie_encode(){
-    $.ajax({
-      dataType: "json",
-      method: "GET",
-      url: "/student_login",
-      success:function (response){
-        if(response.success)
-        {
-          alert(response.data)
+  function changeCode(){
+    // 如果src里的图片链接不变的话，会直接用缓存的图片，加上Math.random()是为了让src的图片链接改变重新去渲染图片
+    document.getElementById("codeImg").src="/student_login/getCodeImg?"+Math.random();
+  }
+  function validateCode() {
+      $.ajax({
+        dataType: "json",
+        method: "GET",
+        url: "/student_login/getCode",
+        success:function (response){
+          if(response.success)
+          {
+            this.text=response.data
+          }
+        },
+        error:function (){
+          alert("验证码接受失败!!")
         }
-      },
-      error:function (){
-        alert("验证码接受失败!!")
-      }
-    })
+      })
   }
 
 

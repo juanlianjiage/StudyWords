@@ -2,10 +2,13 @@ package com.example.english_test.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+
+import java.time.LocalDateTime;
+
 /*学生生词表实体类
 * */
 @Data
-@TableName("student_Words")
+@TableName("student_words")
 public class UnknowWord {
     /*单词Id
     * */
@@ -17,7 +20,7 @@ public class UnknowWord {
 
     /*添加时间
     * */
-    private String addTime;
+    private LocalDateTime addTime;
 
     /*数字等级
     * */
