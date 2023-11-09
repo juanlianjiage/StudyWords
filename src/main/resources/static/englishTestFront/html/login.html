@@ -22,6 +22,7 @@
       <h1><img src="/englishTestFront/img/04.jpg" alt=""></h1>
       <p><i class="iconfont">&#xe74f;</i><input type="text" name="studentId"></p>
       <p><i class="iconfont">&#xe774;</i><input type="text" name="password"></p>
+      <P><input type="text" onclick="recevie_encode()">验证码</P>
       <p><input type="button" class="logIn_tn" id="loginButton" value="登录" onclick="login()"></input></p>
     </form>
     <div><span>立即注册</span><span>忘记密码</span></div>
@@ -50,6 +51,23 @@
       }
     });
   }
+  function recevie_encode(){
+    $.ajax({
+      dataType: "json",
+      method: "GET",
+      url: "/student_login",
+      success:function (response){
+        if(response.success)
+        {
+          alert(response.data)
+        }
+      },
+      error:function (){
+        alert("验证码接受失败!!")
+      }
+    })
+  }
+
 
 </script>
 </html>
