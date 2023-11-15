@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>页面</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* 顶部盒子样式 */
+        #top-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+
+        }
+
+        #user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        #user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 10px;
+            position: relative;
+            cursor: pointer; /* 添加鼠标指针样式 */
+        }
+
+        #user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* 底部盒子样式 */
+        #bottom-container {
+            display: flex;
+            height: calc(100vh - 50px); /* 视口高度减去顶部盒子的高度 */
+        }
+
+        #left-box {
+            flex: 1; /* 占比1 */
+            background-color: #eee;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .menu-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #right-box {
+            flex: 4; /* 占比4 */
+            background-color: #ddd;
+            padding: 20px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .grid-item {
+            background-color: #ccc;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div id="top-container">
+    <div id="current-time">12:00 PM</div>
+    <div id="user-info">
+        <div >用户名：</div>
+        <div id="username"></div>
+        <div>
+            <button id="logout" onclick="logout()">退出</button>
+        </div>
+    </div>
+</div>
+<div id="bottom-container">
+    <div id="left-box">
+        <!-- 左侧盒子，占比1 -->
+        <div class="menu-item" onclick="showMyCourses()">我的课程</div>
+        <div class="menu-item" onclick="studyWords()">学习新单词</div>
+        <div class="menu-item" onclick="showSelfTestScore()">测试成绩</div>
+        <div class="menu-item" onclick="showMyTests()">学习单词记录</div>
+        <div class="menu-item" onclick="showSelfTestScore()">测试成绩</div>
+        <div class="menu-item" onclick="showUnfamiliarWords()">生词集</div>
+
+    </div>
+    <div id="right-box">
+        <!-- 右侧盒子，占比4 -->
+        <h2 id="content-title">欢迎！</h2>
+        <div id="my-courses" style="display: none;">
+            <!-- 我的课程内容 -->
+            <div class="grid-container">
+                <div class="grid-item">课程1</div>
+                <div class="grid-item">课程2</div>
+                <div class="grid-item">课程3</div>
+                <div class="grid-item">课程4</div>
+                <div class="grid-item">课程5</div>
+                <div class="grid-item">课程6</div>
+            </div>
+        </div>
+        <div id="my-tests" style="display: none;">
+            <!-- 我的测试内容 -->
+            <div class="grid-container">
+                <div class="grid-item"></div>
+                <div class="grid-item"></div>
+                <div class="grid-item"></div>
+                <div class="grid-item"></div>
+                <div class="grid-item"></div>
+                <div class="grid-item"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var unkownWords=[]
+    var selfTest=[]
+    document.getElementById('username').innerHTML=sessionStorage.getItem("username")
+    function showMyCourses() {
+        document.getElementById('content-title').innerText = '我的课程';
+        document.getElementById('my-courses').style.display = 'block';
+        document.getElementById('my-tests').style.display = 'none';
+    }
+    function studyWords()
+    {
+        window.location.href="main.html"
+    }
+    //获取用户生词集
+    function showUnfamiliarWords()
+    {
+        $.ajax({
+            url:'/studentFunction/unkonwlist',
+            method:'post',
+            dataType: 'json',
+            success:function (response)
+            {
+                if (response.success)
+                {
+                    unkownWords=response.data;
+                    alert(unkownWords);
+                }
+            }
+
+        })
+    }
+    function showSelfTestScore()
+    {
+        $.ajax({
+            url:'/studentFunction/self_Test',
+            method:'post',
+            dataType: 'json',
+            success:function (response)
+            {
+                if (response.success)
+                {
+                    selfTest=response.data;
+                    alert(selfTest);
+                }
+            }
+
+        })
+    }
+    function showMyTests() {
+        document.getElementById('content-title').innerText = '背单词';
+        document.getElementById('my-courses').style.display = 'none';
+        document.getElementById('my-tests').style.display = 'block';
+       // window.location.href='main.html'
+    }
+
+    function changeAvatar() {
+        // 创建一个文件输入框
+        const fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.accept = 'image/*';
+        fileInput.addEventListener('change', handleFileSelect);
+        fileInput.click();
+
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            // 将图片显示在图像框里
+            const image = document.createElement('img');
+            image.src = URL.createObjectURL(file);
+            document.getElementById('user-avatar').innerHTML = '';
+            document.getElementById('user-avatar').appendChild(image);
+            // 此处添加上传至后端的逻辑，可以使用 XMLHttpRequest 或 Fetch API
+            // 在实际项目中，建议使用 FormData 进行文件上传
+            const formData = new FormData();
+            formData.append('avatar', file);
+
+            // 发送至后端
+            fetch('/', {
+                method: 'POST',
+                body: formData,
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // 处理上传成功的逻辑
+                    console.log('上传成功:', data);
+                })
+                .catch(error => {
+                    // 处理上传失败的逻辑
+                    console.error('上传失败:', error);
+                });
+        }
+    }
+
+    // 获取实时时间并更新
+    function updateTime() {
+        const currentTimeElement = document.getElementById('current-time');
+        const currentTime = new Date().toLocaleTimeString();
+        currentTimeElement.textContent = currentTime;
+    }
+
+    // 更新时间间隔，这里设置为每秒更新一次
+    setInterval(updateTime, 1000);
+    // 初始加载时间
+    updateTime();
+    //退出登录，清除session，成功并返回登陆页面
+    function logout()
+    {
+        $.ajax({
+            url:'/student_login/login_out',
+            method: 'GET',
+            dataType:'JSON',
+            success:function (response)
+            {
+                if (response.success)
+                {
+                    sessionStorage.removeItem("username");
+                    alert(response.data)
+                    window.location.href="login.html"
+                }
+            },
+            error:function (){
+                alert("错误！")
+                sessionStorage.removeItem("username");
+                window.location.href="login.html"
+            }
+        });
+    }
+</script>
+</body>
+</html>
