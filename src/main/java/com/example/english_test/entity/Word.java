@@ -47,6 +47,6 @@ public class Word {
     private String wordExample;
 
     /*备用字段1 2`   * */
-    private int data1;
-    private int data2;
+    private String level;
+    private int studyed;
 }

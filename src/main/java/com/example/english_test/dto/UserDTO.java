@@ -10,8 +10,11 @@ import java.time.LocalTime;
 @Data
 @TableName("student_visit")
 public class UserDTO {
+
     private String studentId;
     private LocalDateTime loginTime;
     private String onlineTime;
     private LocalDateTime latestLoginTime;
+    private String level;
+    private int studyed;
 }

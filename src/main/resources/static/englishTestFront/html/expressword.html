@@ -265,7 +265,7 @@
 
         // 检查是否已记录当前单词的点击
         for (var j = 0; j < userTestData.length; j++) {
-          if (userTestData[j].wordSpell === word) {
+          if (userTestData[j].wordSpell == word) {
             attempted = true;
             break;
           }
@@ -287,7 +287,7 @@
 
       // 发送数据到后端
       $.ajax({
-        url: '/student/wordstest/submit',
+        url: '/student/wordstest/review',
         method: 'POST',
         data: jsonDataWithUnattempted,
         contentType: 'application/json',
@@ -302,14 +302,11 @@
           console.error('数据发送失败');
         }
       }).then(result => {
-        console.log(result.data);
-
         // 在这里创建一个弹窗以展示正确率
-        var gradeMessage = '测试正确率：' + result.data; // 使用返回的数据创建正确率消息
 
         // 创建弹窗
         var gradeMessagePopup = $('#gradeMessage');
-        gradeMessagePopup.find('p').text(gradeMessage);
+        gradeMessagePopup.find('p').text(result.data);
         gradeMessagePopup.show();
 
         // 将弹窗关闭按钮的点击事件处理程序绑定到隐藏弹窗

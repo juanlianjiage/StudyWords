@@ -2,6 +2,8 @@ package com.example.english_test.utils;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.example.english_test.dto.UserDTO;
+import com.example.english_test.entity.Student;
+import com.example.english_test.service.IStudentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -18,7 +20,7 @@ public class LoginInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)  {
         HttpSession session = request.getSession();
 
-        Object user = session.getAttribute("user");
+        Student user = (Student) session.getAttribute("user");
         if (user == null) {
             response.setStatus(401);
             return false;

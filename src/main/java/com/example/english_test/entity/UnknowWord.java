@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
@@ -11,10 +13,11 @@ import java.time.LocalDateTime;
 * */
 @Data
 @TableName("student_words")
+@Component
 public class UnknowWord {
     /*单词Id
     * */
-    @TableId(value = "id",type = IdType.AUTO)
+
     private Integer wordId;
 
     /*学生id

@@ -120,7 +120,9 @@ public class LoginController {
         LocalDateTime loginTime = user.getLoginTime();
         LocalDateTime loginOutTime = LocalDateTime.now();
         Duration between = Duration.between(loginOutTime, loginTime);
-        user.setOnlineTime(String.valueOf((between.toMinutes())/60.0));
+        //String.format("%.2f",((between.toMinutes())/60.0));
+
+        user.setOnlineTime(String.format("%.2f",((between.toMinutes())/60.0)));
         System.out.println(String.valueOf((between.toMinutes())/60.0));
         iUserDTOService.save(user);
         USerHolder.removeUser();

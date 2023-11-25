@@ -1,5 +1,4 @@
 package com.example.english_test.service.serviceimpl;
-
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.english_test.dto.Result;
@@ -7,19 +6,20 @@ import com.example.english_test.dto.UnkonwWord;
 import com.example.english_test.entity.UnknowWord;
 import com.example.english_test.mapper.UnknowWordMapper;
 import com.example.english_test.service.IUnknowWordService;
+import com.example.english_test.utils.ThreadRunable;
 import com.example.english_test.utils.USerHolder;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.LocalDateTime;
-import java.util.List;
-
 @Slf4j
 @Service
 public class UnknowWordServiceImpl extends ServiceImpl<UnknowWordMapper,UnknowWord> implements IUnknowWordService{
 
     //TODO 用户添加生词本，点击一次添加，进行一次 添加
+    @Autowired
+    private ThreadRunable threadRunable;
     @Override
     @Transactional
     public Result saveUnkonwWords(UnkonwWord unknows) {
@@ -38,15 +38,14 @@ public class UnknowWordServiceImpl extends ServiceImpl<UnknowWordMapper,UnknowWo
         UnknowWord one = getOne(queryWrapper);
         if (one==null)
         {
-            save(unknowWord);
+            //TODO 开启多线程，交给另一个线程去处理
+            threadRunable.setUnknowWord(unknowWord);
+            threadRunable.run();
+            //save(unknowWord);
             return Result.ok("添加成功！");
         }
         else {
             return Result.ok("已在生词本中！");
         }
-
     }
-
-
-
-}
+ }
