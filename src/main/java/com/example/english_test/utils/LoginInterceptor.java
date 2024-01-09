@@ -2,16 +2,12 @@ package com.example.english_test.utils;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.example.english_test.dto.UserDTO;
-import com.example.english_test.entity.Student;
-import com.example.english_test.service.IStudentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.time.LocalDateTime;
-
 @Slf4j
 /*登录拦截器
 * */
@@ -20,17 +16,15 @@ public class LoginInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)  {
         HttpSession session = request.getSession();
 
-        Student user = (Student) session.getAttribute("user");
+        Object user = session.getAttribute("user");
         if (user == null) {
             response.setStatus(401);
             return false;
         }
         /*保存用户登录信息
         * */
-        UserDTO userDTO=BeanUtil.copyProperties(user,UserDTO.class);
-        userDTO.setLoginTime(LocalDateTime.now());
-        userDTO.setLatestLoginTime(LocalDateTime.now());
-        userDTO.setReview(0);
+
+        UserDTO userDTO = BeanUtil.copyProperties(user, UserDTO.class);
         USerHolder.saveUSer(userDTO);
         return true;
     }

@@ -1,8 +1,6 @@
 package com.example.english_test.dto;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
@@ -16,7 +14,4 @@ public class UserDTO {
     private LocalDateTime loginTime;
     private String onlineTime;
     private LocalDateTime latestLoginTime;
-    private int review;
-    private String level;
-    private int studyed;
 }

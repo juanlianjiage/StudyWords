@@ -1,7 +1,6 @@
 package com.example.english_test.controller;
 
 import cn.hutool.core.bean.BeanUtil;
-
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.example.english_test.dto.Result;
 import com.example.english_test.dto.UserDTO;
@@ -52,7 +51,13 @@ public class LoginController {
                 Student one = studentService.getOne(queryWrapper);
 
                 session.setAttribute("user",one);
-                return Result.ok(one.getName());
+                UserDTO userDTO = BeanUtil.copyProperties(one, UserDTO.class);
+                userDTO.setLoginTime(LocalDateTime.now());
+                userDTO.setLatestLoginTime(LocalDateTime.now());
+                USerHolder.saveUSer(userDTO);
+
+
+                return Result.ok("登陆成功！");
             }
             else
             {
@@ -115,15 +120,11 @@ public class LoginController {
     public Result student_login_out()
     {
         //TODO 记录学生登录信息，插入student_visit，待完善！！
-
         UserDTO user = USerHolder.getUser();
         LocalDateTime loginTime = user.getLoginTime();
         LocalDateTime loginOutTime = LocalDateTime.now();
         Duration between = Duration.between(loginOutTime, loginTime);
-        //String.format("%.2f",((between.toMinutes())/60.0));
-
-        user.setOnlineTime(String.format("%.2f",((between.toMinutes())/60.0)));
-        System.out.println(String.valueOf((between.toMinutes())/60.0));
+        user.setOnlineTime(String.valueOf((between.toMinutes())/60.0));
         iUserDTOService.save(user);
         USerHolder.removeUser();
         return Result.ok("退出成功！！");

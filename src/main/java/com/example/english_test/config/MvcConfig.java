@@ -24,13 +24,9 @@ public class MvcConfig implements WebMvcConfigurer {
                         "/englishTestFront/html/login.html",
                         "/englishTestFront/css/style1.css",
                         "/englishTestFront/css/style.css",
-                        "/englishTestFront/css/**",
-                        "/englishTestFront/html/homepage.html",
-
                         "/englishTestFront/img/**",
-                        "/englishTestFront/getCodeImg",
-                        "/student_login/getCodeImg",
-                        "/student_login/getCode"
+                        "/student_login/**",
+                        "/englishTestFront/getCodeImg"
 
                 ).order(1);
         // token刷新的拦截器
