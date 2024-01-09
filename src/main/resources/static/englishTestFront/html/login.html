@@ -52,7 +52,7 @@
         if (response.success){
           //添加到session中
           sessionStorage.setItem("username",response.data)
-          window.location.href = 'Personal homepage.html';
+          window.location.href = 'homepage.html';
         }
         else {
           alert(response.errorMsg)
