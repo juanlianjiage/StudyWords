@@ -7,52 +7,64 @@
     <link rel="stylesheet" type="text/css" href="/englishTestFront/css/style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
-<body>
+<body bgcolor="#363636">
 <div id="word-box">
     <h1 id="word">单词</h1>
-    <div id="definition" style="display: none;"></div>
-    <div id="buttons">
-        <button class="button" id="dont-know">不认识</button>
-        <button class="button" id="know">认识</button>
-        <button class="button" id="collect">添加到生词本</button>
-        <button class="button" id="startTestButton">开始测试</button>
+    <video controls autoplay name="media" id="sourcehttp">
+        <source  src="#" type="audio/mp3">
+    </video>
+
+    <span id="definition" style="text-align: center;"></span>
+
+    <div style="">
+        <button class="is-button is-bg is-dark" style="width: 98px; margin-left: 5px; padding: 0.3rem 0.8rem; " id="dont-know">不认识
+        </button>
+        <button class="is-button is-bg is-dark" style="width: 98px; margin-left: 5px; padding: 0.3rem 0.8rem;"id="know">认识
+        </button>
+        <button class="is-button is-bg is-dark" style="width: 98px; margin-left: 5px; padding: 0.3rem 0.8rem;"id="collect">添加生词本
+        </button>
+        <button class="is-button is-bg is-dark" style="width: 98px; margin-left: 5px; padding: 0.3rem 0.8rem; " type="button" id="startTestButton" >下一个
+        </button>
     </div>
 </div>
 <script>
     $(document).ready(function () {
         var wordData = []; // 存储从后端获取的单词数据
         var UnKnowWord={"wordId":null};
+        function getvideo(word) {
+
+                $("#sourcehttp").attr("src","/englishTestFront/usa/"+word+".mp3")
+                var sourcehttp=$("#sourcehttp").get('0');
+                sourcehttp.load()
+                //$("#sourcehttp").src="https://dict.youdao.com/dictvoice?audio="+wordData[currentIndex].wordSpell+"&type=2"
+                // 隐藏词义
+
+        }
         // 获取单词数据并保存
         function getWordData() {
             if (currentIndex < wordData.length) {
                 $('#word').text(wordData[currentIndex].wordSpell);
+                getvideo(wordData[currentIndex].wordSpell);
                 currentIndex++;
                 // 隐藏词义
                 $('#definition').hide();
             } else {
                 console.log('没有更多单词数据了');
+                window.location.href = 'expressword.html';
                 $('#word').text(''); // 如果没有更多数据，清空单词显示
             }
         }
 
         // 点击开始测试按钮时将数据发送到expressword.html
-        $('.button#startTestButton').on('click', function () {
-            // 将数据转换为JSON字符串
-            var jsonData = JSON.stringify(wordData);
-            console.log("将要发送的数据样式：");
-            console.log(jsonData);
-
-            // 使用LocalStorage将数据保存在本地
-            localStorage.setItem('wordData', jsonData);
-
-            // 在点击按钮后打开expressword.html页面
-            window.location.href = 'expressword.html';
+        $('#startTestButton').on('click', function () {
+            getWordData(); // 获取下一个单词
+            $('#definition').hide(); // 隐藏词义
         });
 
         // 获取后端数据并保存
         function fetchAllWordData() {
             $.ajax({
-                url: '/student/cet4Study',
+                url: '/redis/student/cet4Study',
                 method: 'GET',
                 dataType: 'json',
                 success: function (response) {
@@ -92,8 +104,9 @@
         // 显示词义
         function showDefinition() {
             if (currentIndex <= wordData.length) {
-                $('#definition').text('词义：' + wordData[currentIndex - 1].wordMeaning);
+                $('#definition').text( wordData[currentIndex - 1].wordMeaning);
                 $('#definition').show();
+
             }
         }
         // 添加点击事件处理程序以显示词义

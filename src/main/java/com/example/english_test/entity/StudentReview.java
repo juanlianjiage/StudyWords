@@ -18,4 +18,5 @@ public class StudentReview {
     private String level;
     private int beginId;
     private int endId;
+    private int day;
 }

@@ -110,7 +110,12 @@ import java.util.*;
         studentReview.setAddTime(LocalDateTime.now());
         studentReview.setBeginId(user.getStudyed());
         studentReview.setEndId(user.getStudyed()+20);
-        stuReviewWordsService.save(studentReview);
+        int a[]={0,1,3,6,15};
+        for (int i : a) {
+            studentReview.setDay(i);
+            stuReviewWordsService.save(studentReview);
+        }
+
         //更新session
         Student student = (Student) session.getAttribute("user");
         session.removeAttribute("user");

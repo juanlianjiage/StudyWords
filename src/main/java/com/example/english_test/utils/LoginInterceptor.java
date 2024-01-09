@@ -30,6 +30,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         UserDTO userDTO=BeanUtil.copyProperties(user,UserDTO.class);
         userDTO.setLoginTime(LocalDateTime.now());
         userDTO.setLatestLoginTime(LocalDateTime.now());
+        userDTO.setReview(0);
         USerHolder.saveUSer(userDTO);
         return true;
     }
