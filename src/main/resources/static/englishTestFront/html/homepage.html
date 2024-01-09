@@ -1,0 +1,594 @@
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="keywords" content="背单词,艾宾浩斯记忆法,考研英语,英语四级词汇,英语六级词汇,雅思词汇,CET4,CET6,KAOYAN,IELTS">
+    <meta name="description" content="单词森林（Word Forest）一个简洁美观背单词网站，旨在打造一个简洁舒适的外语学习环境。">
+    <meta name="author" content="dong">
+    <link rel="shortcut icon" type="image/x-icon" href="static/images/logo.ico">
+    <title>LearnWord</title>
+    <script src="https://pagead2.googlesyndication.com/pagead/managed/js/adsense/m202312070101/show_ads_impl_fy2021.js"
+            id="google_shimpl"></script>
+    <script src="https://hm.baidu.com/hm.js?79c3e68d979997c8956d16d2c236d2b4"></script>
+<!--    <script defer="defer" src="/static/js/main.min.js?d58eac9ee8c1c55c0885"></script>-->
+<!--    <script defer="defer" src="/static/js/user.min.js?d58eac9ee8c1c55c0885"></script>-->
+<!--    <script defer="defer" src="/static/js/vendor.min.js?d58eac9ee8c1c55c0885"></script>-->
+    <link href="/englishTestFront/css/vendor.css" rel="stylesheet">
+    <style>.container {
+        padding-top: 0 !important
+    }
+
+    .table, th, thead {
+        color: inherit !important;
+        background: inherit !important
+    }
+
+    .graph-table {
+        text-align: center
+    }
+
+    .base-wrapper {
+        padding: 1rem;
+        border-radius: 10px
+    }
+
+    .graph-table td {
+        padding: 5px
+    }
+
+    .graph-table .item {
+        width: 23px;
+        height: 23px;
+        border-radius: 3px;
+        background: #161b22;
+        display: inline-block;
+        line-height: 23px;
+        text-align: center
+    }
+
+    .banner-info {
+        text-align: center;
+        height: 156px;
+        width: calc(100% - 156px);
+        overflow-y: scroll;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column
+    }
+
+    .banner-info h1, .banner-info p {
+        margin-bottom: 5px
+    }
+
+    .profile-info {
+        min-width: 156px;
+        width: 156px;
+        height: 156px;
+        margin-right: .5rem;
+        position: relative;
+        padding: 0;
+        overflow: hidden
+    }
+
+    .profile-info-mask {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        background: #5f5f5f9a;
+        color: #f0f8ff;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center
+    }
+
+    .profile-user-info {
+        position: absolute;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        background: #5f5f5f9a;
+        color: #f0f8ff;
+        font-weight: lighter;
+        text-align: center;
+        padding: 3px;
+        font-size: .8em;
+        border-radius: 10px
+    }
+
+    .profile-user-setting {
+        position: absolute;
+        right: 0;
+        left: 0;
+        top: 0;
+        padding: 5px;
+        background-color: #ffffff00;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between
+    }
+
+    .profile-button, .profile-user-setting a, .profile-user-setting span {
+        width: 28px;
+        height: 28px;
+        background: #5f5f5f9a;
+        padding: 5px;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center
+    }
+
+    .profile-user-setting svg {
+        width: 100%;
+        height: 100%;
+        fill: #ffffff !important;
+        cursor: pointer
+    }
+
+    .sign-wrapper {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: start;
+        flex-wrap: wrap
+    }
+
+    .sign-item {
+        width: 53px;
+        height: 53px
+    }
+
+    .sign-item > img {
+        width: 100%;
+        height: 100%
+    }
+
+    .setting-title {
+        font-size: larger;
+        font-weight: 700;
+        height: 45px;
+        line-height: 45px
+    }
+
+    .familiar-word-wrapper {
+        padding: 1rem
+    }
+
+    .calendar-wrapper {
+        width: 100%;
+        padding: 0;
+        overflow: hidden
+    }
+
+    .calendar-content {
+        position: relative;
+        width: 100%
+    }
+
+    .calendar-content .is-header {
+        width: 100%;
+        display: flex;
+        justify-content: space-between
+    }
+
+    .calendar-content .is-header-left {
+        width: 30%;
+        padding: 1em;
+        text-align: left
+    }
+
+    .calendar-content .is-header-mid {
+        width: 30%;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column
+    }
+
+    .calendar-content .is-header-right {
+        width: 30%;
+        padding: 1em;
+        text-align: right;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: end
+    }
+
+    .calendar {
+        border-top: 1px solid;
+        display: inline-block;
+        width: 100%;
+        text-align: center;
+        padding: 1%
+    }
+
+    .calendar thead {
+        color: #e66b6b;
+        font-weight: 700;
+        text-transform: uppercase
+    }
+
+    .calendar td {
+        padding: .3em .5em;
+        width: 14%;
+        text-align: center;
+        display: inline-block
+    }
+
+    .calendar tbody, .calendar thead, .calendar tr {
+        width: 100%;
+        display: inline-block
+    }
+
+    .calendar tr {
+        margin-bottom: .5rem
+    }
+
+    .calendar tbody {
+        padding-bottom: 1rem
+    }
+
+    .calendar tbody td:hover {
+        background: #cacaca;
+        color: #fff;
+        border-radius: 10px
+    }
+
+    .current-day {
+        color: #e66b6b;
+        font-weight: bolder
+    }
+
+    .calendar-day {
+        display: inline-block;
+        position: relative;
+        width: 34px;
+        height: 34px;
+        line-height: 34px
+    }
+
+    .calendar-day .icon {
+        height: 1rem;
+        width: 1rem
+    }
+
+    .calendar-toggle {
+        width: 30px;
+        height: 30px
+    }
+
+    .calendar-toggle > svg {
+        width: 100%;
+        height: 100%
+    }
+
+    .calendar-day-clock {
+        background-size: cover;
+        border-radius: 50%;
+        position: relative
+    }
+
+    .calendar-day > img {
+        position: absolute
+    }
+
+    .next-month, .prev-month {
+        color: #cacaca
+    }
+
+    .buttons-wrapper {
+        width: 100%;
+        border-radius: 10px;
+        display: flex;
+        justify-content: space-around;
+        position: relative
+    }
+
+    .buttons-wrapper .buttons-item {
+        display: flex;
+        height: 45px;
+        margin: .5rem;
+        overflow: hidden;
+        position: relative;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100px;
+        padding-top: 0
+    }
+
+    .buttons-wrapper .buttons-item > label {
+        position: absolute;
+        bottom: 0;
+        font-size: .7rem;
+        font-weight: lighter
+    }
+
+    .btn-bg {
+        border-radius: 10px;
+        padding: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center
+    }
+
+    .theme-light .btn-bg {
+        background: #81818182
+    }
+
+    .theme-dark .btn-bg {
+        background: #a9a9a982
+    }
+
+    .v-enter-active, .v-leave-active {
+        transition: opacity .5s ease
+    }
+
+    .v-enter-from, .v-leave-to {
+        opacity: 0
+    }
+
+    .slide-left-enter-active, .slide-left-leave-active {
+        transition: all .25s ease-out
+    }
+
+    .slide-left-enter-from {
+        transform: translateX(-60px);
+        opacity: 0
+    }
+
+    .slide-left-leave-to {
+        opacity: 0;
+        transform: translateX(60px)
+    }
+
+    .fade-enter-active, .fade-leave-active, .fade-move {
+        transition: all .5s cubic-bezier(.55, 0, .1, 1)
+    }
+
+    .fade-enter-from, .fade-leave-to {
+        opacity: 0;
+        transform: scaleY(.01) translate(30px, 0)
+    }
+
+    .fade-leave-active {
+        position: absolute
+    }
+
+    .word-input {
+        background: 0 0;
+        width: 100%;
+        height: 100%;
+        display: inline-block;
+        box-shadow: none;
+        outline: 0;
+        border: none;
+        color: inherit;
+        border-bottom: 1px solid;
+        text-align: center;
+        font-size: 1rem;
+        font-weight: 700;
+        letter-spacing: 2px
+    }
+
+    .icon-member {
+        fill: #ffffff !important
+    }
+
+    .icon-big-member {
+        fill: #f1b03a !important
+    }
+
+    .member-button {
+        position: absolute;
+        top: .5rem;
+        right: .5rem
+    }
+
+    .correct-icon {
+        font-size: 1.5rem;
+        margin-right: 10px;
+        font-weight: 700;
+        color: #01cbb8
+    }
+
+    .correct-icon-gold {
+        color: #ff8c00
+    }</style>
+    <script id="src:https:pagead2googlesyndicationcompageadjsadsbygooglejs?client=ca-pub-6596727505190761"
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6596727505190761"
+            type="text/javascript" async="" data-checked-head="true"></script>
+    <meta http-equiv="origin-trial"
+          content="As0hBNJ8h++fNYlkq8cTye2qDLyom8NddByiVytXGGD0YVE+2CEuTCpqXMDxdhOMILKoaiaYifwEvCRlJ/9GcQ8AAAB8eyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3MTk1MzI3OTksImlzU3ViZG9tYWluIjp0cnVlfQ==">
+    <meta http-equiv="origin-trial"
+          content="AgRYsXo24ypxC89CJanC+JgEmraCCBebKl8ZmG7Tj5oJNx0cmH0NtNRZs3NB5ubhpbX/bIt7l2zJOSyO64NGmwMAAACCeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3MTk1MzI3OTksImlzU3ViZG9tYWluIjp0cnVlfQ==">
+    <meta http-equiv="origin-trial"
+          content="A/ERL66fN363FkXxgDc6F1+ucRUkAhjEca9W3la6xaLnD2Y1lABsqmdaJmPNaUKPKVBRpyMKEhXYl7rSvrQw+AkAAACNeyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiRmxlZGdlQmlkZGluZ0FuZEF1Y3Rpb25TZXJ2ZXIiLCJleHBpcnkiOjE3MTkzNTk5OTksImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9">
+    <meta http-equiv="origin-trial"
+          content="A6OdGH3fVf4eKRDbXb4thXA4InNqDJDRhZ8U533U/roYjp4Yau0T3YSuc63vmAs/8ga1cD0E3A7LEq6AXk1uXgsAAACTeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiRmxlZGdlQmlkZGluZ0FuZEF1Y3Rpb25TZXJ2ZXIiLCJleHBpcnkiOjE3MTkzNTk5OTksImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9">
+</head>
+<body style="" class="theme-dark">
+<header class="is-shadow between p1">
+    <div id="switchThemeBtnBox">
+        <div class="switch-btn"><input type="checkbox" id="themeSwitchBtn"><label></label></div>
+    </div>
+    <div><a href="/">
+        <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <path d="M913.706667 512.128c23.552 26.197333 23.893333 60.288 4.48 79.530667-21.034667 20.864-53.973333 18.602667-71.466667 1.834666-17.493333-16.725333-265.301333-279.552-288.128-302.549333-36.053333-36.266667-70.741333-34.133333-104.661333 0-34.133333 34.389333-271.530667 282.88-288.768 297.898667-17.237333 15.104-49.792 18.346667-70.144-1.962667-22.869333-22.869333-19.754667-60.202667-2.048-78.933333 21.461333-22.698667 325.546667-338.133333 343.296-357.376 43.008-46.634667 98.688-45.653333 133.546666-8.192 25.984 27.904 317.013333 339.797333 343.893334 369.749333zM453.418667 375.765333c28.458667-29.696 73.130667-33.664 105.088-0.128 13.781333 14.506667 264.917333 273.706667 264.917333 273.706667v180.138667c-0.085333 27.349333-20.565333 52.992-52.053333 53.376h-160.853334V736.853333c0-20.096-7.125333-31.658667-26.026666-31.488-13.994667 0.128-139.52-0.554667-162.517334-0.384-19.413333 0.128-25.344 15.104-25.429333 31.829334 0 13.397333-0.469333 146.048-0.469333 146.048H239.701333c-32.469333 0.170667-52.992-16.554667-53.205333-47.488-0.085333-15.573333-0.128-187.690667-0.128-187.690667s248.32-252.373333 267.050667-271.914667z"></path>
+        </svg>
+    </a></div>
+</header>
+<main id="app" data-v-app="">
+    <section>
+        <div class="container is-max-desktop p1 center row">
+            <div class="buttons-wrapper is-shadow"><a href="/englishTestFront/html/main.html" class="base-wrapper buttons-item">
+                <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M975.258 211.098a128 128 0 0 0-128-128H710.144a209.147 209.147 0 0 0-148.326 61.644 41.83 41.83 0 0 0-12.135 29.492V958.31a332.186 332.186 0 0 1 207.053-72.448h90.522a128 128 0 0 0 128-128V211.046z m-924.058 0a128 128 0 0 1 128-128h137.165c55.654 0 109.056 22.17 148.275 61.644 7.782 7.834 12.186 18.432 12.186 29.492V958.31a332.186 332.186 0 0 0-207.104-72.448H179.2a128 128 0 0 1-128-128V211.046z"></path>
+                </svg>
+                <label class="is-text">去学习</label></a><a href="/englishTestFront/html/review.html" class="base-wrapper buttons-item">
+                <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M672 856v56c0 20.898-13.36 38.668-32 45.258V976c0 26.51-21.49 48-48 48h-160c-26.51 0-48-21.49-48-48v-18.742c-18.64-6.59-32-24.36-32-45.258v-56c0-13.254 10.746-24 24-24h272c13.254 0 24 10.746 24 24z m-286.214-88c-19.814 0-37.652-12.156-44.752-30.654C263.394 535.082 160 555.462 160 352 160 157.606 317.61 0 512 0s352 157.606 352 352c0 203.462-103.394 183.082-181.032 385.346-7.1 18.498-24.94 30.654-44.752 30.654H385.786zM352 352c0-88.224 71.776-160 160-160 17.674 0 32-14.328 32-32s-14.326-32-32-32c-123.514 0-224 100.486-224 224 0 17.672 14.328 32 32 32s32-14.328 32-32z"></path>
+                </svg>
+                <label class="is-text" onclick="showreview()">单词回忆</label>
+                <div id="getReview" style="display: none;border: 2px solid #ff8c00">
+                    需要复习的单词
+                </div>
+            </a>
+
+            </div>
+        </div>
+        <div class="container p1 is-max-desktop">
+            <div class="is-shadow radius" style="display: flex; overflow: hidden;">
+                <div style="display: flex; flex-direction: row; justify-content: space-around; width: 100%;"><a
+                        class="center"
+                        style="width: 45px; height: 45px; margin: 0.5rem; font-size: 0.7rem; font-weight: lighter;">
+                    <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M640 256 384 256 213.333333 256 213.333333 170.666667 384 170.666667C384 147.093333 403.093333 128 426.666667 128L597.333333 128C620.906667 128 640 147.093333 640 170.666667L810.666667 170.666667 810.666667 256 640 256ZM768 810.666667C768 857.792 729.792 896 682.666667 896L341.333333 896C294.208 896 256 857.792 256 810.666667L256 298.666667 768 298.666667 768 810.666667Z"></path>
+                    </svg>
+                    <label class="is-text">已移除</label></a><a href="/englishTestFront/html/VocabularyBook.html" class="center"
+                                                             style="width: 45px; height: 45px; margin: 0.5rem; font-size: 0.7rem; font-weight: lighter;" >
+                    <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M509.606998 104.904235c-24.043602 0-45.922912 13.226233-56.177464 33.95637L356.189863 336.302419l-223.674269 32.54216c-22.983457 3.304256-42.100864 18.718317-49.481971 39.659255-7.381108 21.048385-1.812275 44.23241 14.431687 60.033281l163.916257 160.125931-38.011732 222.016513c-3.868097 22.408359 6.03239 44.819788 25.458835 57.94676 10.69662 7.116071 23.204491 10.784624 35.757388 10.784624 10.298554 0 20.663622-2.475378 30.055526-7.337105l194.987926-102.7205L704.662463 912.072815c9.369392 4.861728 19.712971 7.337105 29.990035 7.337105 12.57541 0 25.082258-3.668553 35.778878-10.784624 19.426445-13.126972 29.305443-35.538401 25.460882-57.94676l-38.012755-222.016513 163.937746-160.125931c16.22145-15.812127 21.810748-38.984896 14.408151-60.033281-7.402597-20.940938-26.51898-36.353976-49.503461-39.659255L663.04767 336.302419l-97.240695-197.441814C555.619962 118.131491 533.695626 104.904235 509.606998 104.904235L509.606998 104.904235z"></path>
+                    </svg>
+                    <label class="is-text">生词本</label></a></div>
+            </div>
+        </div>
+
+    </section>
+    <aside style="position: fixed; bottom: 0px; right: 0px; padding: 0.5rem; background: 0px 0px;"><a href="/dict"
+                                                                                                      class="is-shadow is-bg"
+                                                                                                      style="display: flex; padding: 0.6rem; border-radius: 10px; margin-bottom: 0.5rem; justify-content: center;">
+        <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <path d="M465.5 237.1h-82v335.6h82c59.7 0 100.7-14.9 130.5-41 26.1-26.1 41-70.9 41-126.8 0-59.7-14.9-100.7-41-126.8-26.1-29.8-70.8-41-130.5-41z"></path>
+            <path d="M756.4 61.9H226.8c-59.7 0-108.1 48.5-108.1 108.1v682.4c0 59.7 48.5 108.1 108.1 108.1h529.5c41 0 78.3-37.3 93.2-74.6h-619c-22.4 0-41-18.6-41-41v-37.3c0-22.4 22.4-41 44.7-41H719c82 0 145.4-67.1 145.4-149.2V166.3c0.1-56-48.4-104.4-108-104.4zM655.7 576.5c-41 41-97 63.4-175.3 63.4H308.9V173.7h171.5c78.3 0 134.2 22.4 175.3 63.4 37.3 41 55.9 97 55.9 171.5 0 70.9-18.6 126.9-55.9 167.9z"></path>
+        </svg>
+    </a><a href="/games" class="is-shadow is-bg"
+           style="display: flex; padding: 0.6rem; border-radius: 10px; margin-bottom: 0.5rem; justify-content: center;">
+        <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <path d="M695.296 90.112h-135.168v0.512H332.8c-176.128 0-318.976 142.336-318.976 318.464v341.504c0 62.976 51.2 113.664 113.664 113.664h91.136c51.712 0 114.176-31.232 145.408-72.704l68.608-91.136c6.656-8.704 25.6-18.432 36.352-18.432h90.624c10.752 0 30.208 9.728 36.352 18.432l68.096 91.136c31.232 41.472 93.696 72.704 145.408 72.704h91.136c62.976 0 113.664-51.2 113.664-113.664V409.088c0-176.128-142.336-318.976-318.976-318.976zM400.896 454.656h-45.568v45.568c0 25.088-20.48 45.568-45.568 45.568s-45.568-20.48-45.568-45.568v-45.568h-45.568c-25.088 0-45.568-20.48-45.568-45.568s20.48-45.568 45.568-45.568h45.568v-45.568c0-25.088 20.48-45.568 45.568-45.568s45.568 20.48 45.568 45.568V363.52h45.568c25.088 0 45.568 20.48 45.568 45.568s-20.48 45.568-45.568 45.568z m204.8 0c-25.088 0-45.568-20.48-45.568-45.568s20.48-45.568 45.568-45.568 45.568 20.48 45.568 45.568-20.48 45.568-45.568 45.568z m113.664 113.664c-25.088 0-45.568-20.48-45.568-45.568s20.48-45.568 45.568-45.568 45.568 20.48 45.568 45.568-20.48 45.568-45.568 45.568z m0-227.328c-25.088 0-45.568-20.48-45.568-45.568s20.48-45.568 45.568-45.568 45.568 20.48 45.568 45.568-20.48 45.568-45.568 45.568z m113.664 113.664c-25.088 0-45.568-20.48-45.568-45.568s20.48-45.568 45.568-45.568 45.568 20.48 45.568 45.568-20.48 45.568-45.568 45.568z"></path>
+        </svg>
+    </a></aside>
+    <div style="position: fixed; inset: 0px; z-index: 99; padding: 0.5rem; overflow-y: auto; display: none;">
+        <div class="container is-max-desktop">
+            <div class="is-shadow p1-2 radius"
+                 style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <div></div>
+                <h3 style="font-weight: 700; font-size: 1.3rem;">已移除的熟词</h3><a class="center p1-2">
+                <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M851.428571 755.428571q0 22.857143-16 38.857143l-77.714285 77.714286q-16 16-38.857143 16t-38.857143-16l-168-168-168 168q-16 16-38.857143 16t-38.857143-16l-77.714285-77.714286q-16-16-16-38.857143t16-38.857142l168-168-168-168q-16-16-16-38.857143t16-38.857143l77.714285-77.714286q16-16 38.857143-16t38.857143 16l168 168 168-168q16-16 38.857143-16t38.857143 16l77.714285 77.714286q16 16 16 38.857143t-16 38.857143l-168 168 168 168q16 16 16 38.857142z"></path>
+                </svg>
+            </a></div>
+            <div class="is-shadow" style="padding: 0.5rem 0.5rem 1rem; border-radius: 10px; min-height: 80%;"><p
+                    style="padding: 1rem; text-align: center;">暂无已移除的熟词</p><!----></div>
+        </div>
+    </div>
+    <div style="position: fixed; inset: 0px; z-index: 99; padding: 0.5rem; overflow-y: auto; display: none;">
+        <div class="center"
+             style="position: fixed; inset: 0px; z-index: 99; background-color: rgba(0, 0, 0, 0.48); padding: 1rem; display: none;">
+            <div class="width-full is-bg stop-propagation"
+                 style="display: flex; justify-content: space-between; margin-bottom: 1rem; border-radius: 10px; align-items: center; max-width: 660px; padding: 5px;">
+                <a class="btn-bg ellipsis" style="width: 44px; height: 44px;">
+                    <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M851.456 755.419429q0 22.820571-16.018286 38.838857l-77.677714 77.677714q-16.018286 16.018286-38.838857 16.018286t-38.838857-16.018286l-168.009143-168.009143-168.009143 168.009143q-16.018286 16.018286-38.838857 16.018286t-38.838857-16.018286l-77.677714-77.677714q-16.018286-16.018286-16.018286-38.838857t16.018286-38.838857l168.009143-168.009143-168.009143-168.009143q-16.018286-16.018286-16.018286-38.838857t16.018286-38.838857l77.677714-77.677714q16.018286-16.018286 38.838857-16.018286t38.838857 16.018286l168.009143 168.009143 168.009143-168.009143q16.018286-16.018286 38.838857-16.018286t38.838857 16.018286l77.677714 77.677714q16.018286 16.018286 16.018286 38.838857t-16.018286 38.838857l-168.009143 168.009143 168.009143 168.009143q16.018286 16.018286 16.018286 38.838857z"></path>
+                    </svg>
+                </a><input class="word-input" placeholder="输入你想添加的单词" style="width: 70%; max-width: 230px;"> <a
+                    class="btn-bg">
+                <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M832.234 448H575.25V191.016c0-35.346-28.653-64-64-64s-64 28.654-64 64V448H191.766c-35.346 0-64 28.654-64 64s28.654 64 64 64H447.25v256.984c0 35.346 28.654 64 64 64s64-28.654 64-64V576h256.984c35.346 0 64-28.653 64-64s-28.654-64-64-64z"></path>
+                </svg>
+            </a></div>
+        </div>
+        <div class="container is-max-desktop" style="padding-bottom: 1rem; border-radius: 10px; min-width: 280px;">
+            <div class="width-full is-shadow p1-2 radius"
+                 style="display: flex; justify-content: space-between; margin-bottom: 1rem; border-radius: 10px;">
+                <a></a>
+                <h3 class="center" style="text-align: center; font-weight: 700; font-size: 1.3rem;">收藏夹</h3><a
+                    class="center p1-2">
+                <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M851.428571 755.428571q0 22.857143-16 38.857143l-77.714285 77.714286q-16 16-38.857143 16t-38.857143-16l-168-168-168 168q-16 16-38.857143 16t-38.857143-16l-77.714285-77.714286q-16-16-16-38.857143t16-38.857142l168-168-168-168q-16-16-16-38.857143t16-38.857143l77.714285-77.714286q16-16 38.857143-16t38.857143 16l168 168 168-168q16-16 38.857143-16t38.857143 16l77.714285 77.714286q16 16 16 38.857143t-16 38.857143l-168 168 168 168q16 16 16 38.857142z"></path>
+                </svg>
+            </a></div>
+            <div class="width-full is-shadow p1-2 radius"
+                 style="display: flex; justify-content: right; margin-bottom: 1rem; border-radius: 10px;"><a
+                    class="center p1-2" style="margin-right: 1rem;">
+                <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M423.468266 528.631684c-14.328836-12.281859-33.263368-18.422789-56.803598-18.422788h-29.68116v151.476261h28.657671c25.075462 0 44.521739-6.652674 58.338831-20.469765 13.817091-13.817091 20.981509-32.751624 20.981509-57.315342 0-24.563718-7.164418-42.986507-21.493253-55.268366z"
+                          fill="" p-id="6765"></path>
+                    <path d="M876.873563 165.805097l-29.169415-29.169415-29.169415-29.169415c-67.550225-68.573713-107.466267-107.466267-149.429286-107.466267H354.382809c-86.996502 0-157.617191 70.62069-157.617192 157.617191v275.318341h-117.701149c-21.493253 0-39.404298 17.911044-39.404298 39.404298v236.425787c0 21.493253 17.911044 39.404298 39.404298 39.404298h118.212893v118.212894c0 86.996502 70.62069 157.617191 157.617192 157.617191h472.33983c86.996502 0 157.617191-70.62069 157.617191-157.617191V314.722639c-0.511744-41.451274-39.404298-81.87906-107.978011-148.917542zM229.517241 593.623188c-13.817091 11.770115-30.704648 17.3993-51.174412 16.887557h-25.587207v73.17941h-25.587206V487.692154h55.78011c20.981509 0 37.869065 5.117441 49.127436 15.352324 11.770115 10.234883 17.3993 25.075462 17.3993 44.009995 0.511744 18.934533-6.652674 34.286857-19.958021 46.568715z m676.013993 272.247876c0 43.498251-35.310345 78.808596-78.808595 78.808596H354.382809c-43.498251 0-78.808596-35.310345-78.808596-78.808596v-118.212893h393.531234c21.493253 0 39.404298-17.911044 39.404298-39.404298V472.33983c0-21.493253-17.911044-39.404298-39.404298-39.404298H275.574213V157.617191c0-43.498251 35.310345-78.808596 78.808596-78.808595h287.088455c28.145927 7.164418 28.145927 41.963018 28.145927 76.761619v120.25987c0 21.493253 17.911044 39.404298 39.404298 39.404298h118.212894c39.404298 0 78.808596 0 78.808596 39.404298v511.232383z m-593.623188-182.180909V487.692154h55.78011c29.681159 0 54.244878 8.69965 74.202898 26.09895 19.958021 17.3993 29.681159 40.427786 29.68116 69.597202 0 30.192904-9.723138 54.756622-29.68116 73.17941-19.958021 18.422789-45.033483 27.634183-76.249875 27.634183H311.908046z m319.328336-107.978011v22.516742h-70.108946v85.973013h-25.587206V487.692154h101.325337v22.516742h-75.738131v65.503248h70.108946z"></path>
+                    <path d="M178.342829 509.697151h-26.098951v78.296852h23.54023c15.352324 0 27.122439-3.582209 35.310345-10.234883 8.187906-7.164418 12.281859-16.887556 12.281859-30.192903 0-25.075462-14.84058-37.869065-45.033483-37.869066z"></path>
+                </svg>
+            </a><a class="center p1-2" style="margin-right: 1rem;">
+                <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M354.401 0c-87.04 0-157.44 70.559-157.44 157.599V433.28H78.72c-21.658 0-39.363 17.7-39.363 39.363V708.96c0 21.658 17.7 39.358 39.363 39.358h118.241V866.4c0 87.04 70.4 157.599 157.44 157.599H827.04c87.04 0 157.598-70.559 157.598-157.599V315.034c0-41.749-38.988-81.93-107.52-149.28L848 136.633l-29.123-29.112C751.54 38.989 711.393 0 669.6 0H354.406z m0 78.72h287.202c28.354 7.091 27.996 42.138 27.996 76.8v120.161c0 21.658 17.7 39.358 39.362 39.358H827.04c39.388 0 78.878-0.026 78.878 39.362v512c0 43.32-35.553 78.879-78.878 78.879H354.406c-43.325 0-78.72-35.558-78.72-78.879V748.32h393.918c21.663 0 39.362-17.695 39.362-39.358V472.643c0-21.663-17.7-39.363-39.362-39.363H275.68V157.599c0-43.32 35.395-78.879 78.72-78.879zM166.554 503.839h121.922V524h-49.92v155.52h-22.082v-155.52h-49.92V503.84z m128.64 0h24.002l39.358 67.2 40.32-67.2h23.04l-50.868 83.527 54.718 92.16h-24.96l-43.198-75.842-43.202 75.842h-23.04l54.722-92.16-50.882-83.522z m133.442 0h121.918V524h-49.92v155.52h-22.068v-155.52h-49.92V503.84z"></path>
+                </svg>
+            </a><a class="center p1-2">
+                <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M512 930c-53 0-96-43-96-96V190c0-53 43-96 96-96s96 43 96 96v644c0 53-43 96-96 96z"></path>
+                    <path d="M930 512c0 53-43 96-96 96H190c-53 0-96-43-96-96s43-96 96-96h644c53 0 96 43 96 96z"></path>
+                </svg>
+            </a></div>
+            <div class="is-shadow radius" style="padding: 1rem 0.5rem 3rem; margin-bottom: 1rem;">
+                <div class="width-full flex-row"
+                     style="justify-content: space-between; border-bottom: 2px solid; margin-bottom: 0.5rem; padding: 0.5rem 0.5rem 1rem;">
+                    <div style="width: 33px;">#</div>
+                    <div style="width: 130px; padding: 0px 8px 0px 0px;">单词</div>
+                    <div style="width: 100%; padding: 0px 8px 0px 0px;">释义</div>
+                    <div style="width: 66px;">操作</div>
+                </div>
+            </div>
+            <div class="is-shadow radius flex-row"
+                 style="justify-content: space-between; display: none; align-items: center; padding: 0px 1rem;"><i
+                    style="font-size: small;">共0个</i> <a class="p1" style="display: none;">上一页 </a><a class="p1"
+                                                                                                      style="display: none;">下一页 </a><i
+                    style="font-size: small;">第1页</i></div>
+        </div>
+    </div><!----></main>
+<footer>
+    <div>
+        <div><a style="font-size:small;color:#7b7b7bed!important;" href="https://support.qq.com/product/474009"
+                target="_blank">意见 · 反馈</a><a style="font-size:small;color:#7b7b7bed!important;" href="/about"> · 关于</a>
+        </div>
+        <div><span style="font-size:small;color:#7b7b7bed!important;"></span></div>
+        <div><span style="font-size:small;color:#7b7b7bed!important;">www.wordforest.cn all rights reserved.</span>
+        </div>
+    </div>
+</footer>
+
+<ins class="adsbygoogle adsbygoogle-noablate" data-adsbygoogle-status="done" style="display: none !important;"
+     data-ad-status="unfilled">
+    <div id="aswift_0_host"
+         style="border: none; height: 0px; width: 0px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block;"
+         tabindex="0" title="Advertisement" aria-label="Advertisement">
+        <iframe id="aswift_0" name="aswift_0" browsingtopics="true"
+                style="left:0;position:absolute;top:0;border:0;width:undefinedpx;height:undefinedpx;"
+                sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation"
+                frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true"
+                scrolling="no" allow="attribution-reporting"
+                src="https://googleads.g.doubleclick.net/pagead/ads?client=ca-pub-6596727505190761&amp;output=html&amp;adk=1812271804&amp;adf=3025194257&amp;lmt=1702632198&amp;plat=1%3A16777216%2C2%3A16777216%2C3%3A65536%2C4%3A65536%2C9%3A32776%2C16%3A8388608%2C17%3A32%2C24%3A32%2C25%3A32%2C32%3A32%2C41%3A32%2C42%3A32&amp;format=0x0&amp;url=https%3A%2F%2Fwordforest.cn%2Fuser&amp;ea=0&amp;pra=5&amp;wgl=1&amp;easpi=0&amp;asro=0&amp;asiscm=1&amp;aslmt=0.4&amp;asamt=-1&amp;asedf=0&amp;asefa=1&amp;aseiel=1~2~4~6&amp;aslcwct=150&amp;asacwct=25&amp;uach=WyJBbmRyb2lkIiwiNi4wIiwiIiwiTmV4dXMgNSIsIjExOS4wLjYwNDUuMTk5IixudWxsLDEsbnVsbCwiNjQiLFtbIkdvb2dsZSBDaHJvbWUiLCIxMTkuMC42MDQ1LjE5OSJdLFsiQ2hyb21pdW0iLCIxMTkuMC42MDQ1LjE5OSJdLFsiTm90P0FfQnJhbmQiLCIyNC4wLjAuMCJdXSwwXQ..&amp;dt=1702632194980&amp;bpp=2&amp;bdt=16095&amp;idt=3299&amp;shv=r20231207&amp;mjsv=m202312070101&amp;ptt=9&amp;saldr=aa&amp;abxe=1&amp;nras=1&amp;correlator=1585055337296&amp;frm=20&amp;pv=2&amp;ga_vid=41081624.1702632198&amp;ga_sid=1702632198&amp;ga_hid=35458859&amp;ga_fc=0&amp;u_tz=480&amp;u_his=2&amp;u_h=874&amp;u_w=1080&amp;u_ah=874&amp;u_aw=1080&amp;u_cd=24&amp;u_sd=2&amp;dmc=8&amp;adx=-12245933&amp;ady=-12245933&amp;biw=1080&amp;bih=874&amp;scr_x=0&amp;scr_y=0&amp;eid=44759876%2C44759927%2C95320868%2C95320884%2C31078663%2C31078665%2C31078668%2C31078670&amp;oid=2&amp;pvsid=3360206026571520&amp;tmod=85561036&amp;uas=1&amp;nvt=1&amp;fsapi=1&amp;fc=1920&amp;brdim=0%2C0%2C0%2C0%2C1080%2C0%2C1080%2C874%2C1080%2C874&amp;vis=1&amp;rsz=%7C%7Cs%7C&amp;abl=NS&amp;fu=32768&amp;bc=31&amp;td=1&amp;psd=W251bGwsbnVsbCwicHJlcGVyaW9kIiwxXQ..&amp;nt=1&amp;ifi=1&amp;uci=a!1&amp;fsb=1&amp;dtd=3311"
+                data-google-container-id="a!1" data-load-complete="true"></iframe>
+    </div>
+</ins>
+<iframe src="https://www.google.com/recaptcha/api2/aframe" width="0" height="0" style="display: none;"></iframe>
+</body>
+<script>
+    function showreview(){
+        var div=$("getReview").get(0);
+        if(div.style.display=""){
+            div.style.display="none";
+        }else {
+            div.style.display="";
+        }
+    }
+</script>
+<iframe id="google_esf" name="google_esf"
+        src="https://googleads.g.doubleclick.net/pagead/html/r20231207/r20190131/zrt_lookup_fy2021.html"
+        style="display: none;"></iframe>
+</html>
