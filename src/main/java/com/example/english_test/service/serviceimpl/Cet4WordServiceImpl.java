@@ -23,9 +23,10 @@ public class Cet4WordServiceImpl extends ServiceImpl<cet4WordsMapper, Cet4Word> 
 
         UserDTO user = USerHolder.getUser();
         int studyed = user.getStudyed();
+        int count = user.getCount();
         LambdaQueryWrapper<Cet4Word> queryWrapper = new LambdaQueryWrapper<>();
 
-            queryWrapper.last("limit "+studyed+",20");
+            queryWrapper.last("limit "+studyed+","+count);
 
 
         List<Cet4Word> words = list(queryWrapper);
@@ -44,6 +45,9 @@ public class Cet4WordServiceImpl extends ServiceImpl<cet4WordsMapper, Cet4Word> 
             wordsSelect.setWordId(words.get(i1).getWordId());
             wordsSelect.setWordSpell(words.get(i1).getWordSpell());
             wordsSelect.setWordMeaning(words.get(i1).getWordMeaning());
+            wordsSelect.setWordPhonetic(words.get(i1).getWordPhonetic());
+            wordsSelect.setWordExample(words.get(i1).getWordExample());
+            wordsSelect.setTranslation(words.get(i1).getTranslation());
             HashSet<String> selects1 = new HashSet<>();
             selects1.add(words.get(i1).getWordMeaning());
             int j=0;

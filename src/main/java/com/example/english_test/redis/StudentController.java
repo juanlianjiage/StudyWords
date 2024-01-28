@@ -28,10 +28,10 @@ public class StudentController {
     public Result getCet4Word(){
         UserDTO user = USerHolder.getUser();
         int studyed = user.getStudyed();
-
+        int count = user.getCount();
         RedisOperations<String, Cet4Word> operations = redisTemplate.opsForList().getOperations();
 
-        List<Cet4Word> cet4WordList = operations.opsForList().range("Cet4:WordList", Long.valueOf(studyed), studyed+19);
+        List<Cet4Word> cet4WordList = operations.opsForList().range("Cet4:WordList", Long.valueOf(studyed), studyed+count-1);
         ArrayList<WordsSelect> wordsSelects = Cet4WordServiceImpl.getWordsSelects(cet4WordList);
         return Result.ok(wordsSelects);
 

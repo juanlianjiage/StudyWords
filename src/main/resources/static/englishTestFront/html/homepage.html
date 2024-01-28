@@ -6,17 +6,857 @@
     <meta name="keywords" content="背单词,艾宾浩斯记忆法,考研英语,英语四级词汇,英语六级词汇,雅思词汇,CET4,CET6,KAOYAN,IELTS">
     <meta name="description" content="单词森林（Word Forest）一个简洁美观背单词网站，旨在打造一个简洁舒适的外语学习环境。">
     <meta name="author" content="dong">
-    <link rel="shortcut icon" type="image/x-icon" href="static/images/logo.ico">
+
+
     <title>LearnWord</title>
     <script src="https://pagead2.googlesyndication.com/pagead/managed/js/adsense/m202312070101/show_ads_impl_fy2021.js"
             id="google_shimpl"></script>
     <script src="https://hm.baidu.com/hm.js?79c3e68d979997c8956d16d2c236d2b4"></script>
-<!--    <script defer="defer" src="/static/js/main.min.js?d58eac9ee8c1c55c0885"></script>-->
-<!--    <script defer="defer" src="/static/js/user.min.js?d58eac9ee8c1c55c0885"></script>-->
-<!--    <script defer="defer" src="/static/js/vendor.min.js?d58eac9ee8c1c55c0885"></script>-->
+    <!--    <script defer="defer" src="/static/js/main.min.js?d58eac9ee8c1c55c0885"></script>-->
+    <!--    <script defer="defer" src="/static/js/user.min.js?d58eac9ee8c1c55c0885"></script>-->
+    <!--    <script defer="defer" src="/static/js/vendor.min.js?d58eac9ee8c1c55c0885"></script>-->
     <link href="/englishTestFront/css/vendor.css" rel="stylesheet">
-    <style>.container {
+    <!--    <script defer="defer" src="/englishTestFront/js/main.min.js?84e5527cbe57c72c87d6"></script>-->
+    <!--        <script defer="defer" src="/englishTestFront/js/book.min.js?84e5527cbe57c72c87d6"></script>-->
+    <!--    <script defer="defer" src="/englishTestFront/js/vendor.min.js?84e5527cbe57c72c87d6"></script>-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>.ground {
+        display: none;
+
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        width: 400px;
+        height: 250px;
+        border-radius: 20px;
+        border: 2px solid #fff;
+        background: #fff;
+        margin: auto;
+        position: absolute;
+        top: -200px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+
+    .ground1 {
+        position: relative;
+    }
+
+    .headline {
+        margin: auto;
+        position: absolute;
+        top: 10px;
+        left: 175px;
+        right: 0;
+        bottom: 0;
+    }
+
+    .text {
+        margin: auto;
+        position: absolute;
+        top: 110px;
+        left: 50px;
+        right: 0;
+        bottom: 0;
+    }
+
+    .yes, .no {
+        border: 2px solid #87cefa;
+        background: #87cefa;
+        border-radius: 11px;
+        width: 65px;
+        height: 38px;
+        font-size: 17px;
+    }
+
+    .yes {
+        margin: auto;
+        position: absolute;
+        top: 420px;
+        left: 140px;
+        right: 0;
+        bottom: 0;
+    }
+
+    .no {
+        margin: auto;
+        position: absolute;
+        top: 420px;
+        left: 290px;
+        right: 0;
+        bottom: 0;
+    }
+
+    /*button:hover{*/
+
+    /*    border: 2px solid #ffdd55;*/
+    /*}*/
+
+
+    .container {
         padding-top: 0 !important
+    }
+
+    .word {
+        font-size: large !important;
+        font-weight: inherit;
+        color: #3196bc !important
+    }
+
+    .line {
+        padding: 1rem;
+        text-align: center;
+        font-size: large;
+        font-weight: 700;
+        border-radius: 10px;
+        margin-bottom: 1rem !important;
+        z-index: 10;
+        display: flex;
+        justify-content: center;
+        align-items: center
+    }
+
+    .is-menu {
+        display: flex;
+        justify-content: center;
+        align-items: center
+    }
+
+    .is-menu-item {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0 .5rem;
+        cursor: pointer
+    }
+
+    .is-menu-item svg {
+        width: 30px;
+        height: 30px
+    }
+
+    .is-menu-item p {
+        font-size: .8rem
+    }
+
+    .widget-book {
+        display: flex !important;
+        padding: 1em;
+        border-radius: 10px;
+        width: 100%
+    }
+
+    .widget-book .is-title {
+        font-weight: 700;
+        line-height: 1.42em;
+        display: inline-block;
+        white-space: nowrap;
+        margin-bottom: 13px;
+        text-overflow: ellipsis;
+        overflow: hidden
+    }
+
+    .widget-book .is-subheading {
+        font-weight: lighter;
+        font-size: .71em;
+        display: inline-block;
+        white-space: nowrap;
+        margin-bottom: 13px
+    }
+
+    .widget-book .is-body {
+        width: 75%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        font-size: small;
+        padding-right: 5px
+    }
+
+    .widget-book .is-body .is-content {
+        font-size: .8rem;
+        line-height: 1rem;
+        height: 2rem;
+        overflow: hidden !important
+    }
+
+    .widget-book .is-image {
+        width: 25%;
+        display: flex;
+        justify-content: center;
+        align-items: center
+    }
+
+    .widget-book .is-image > img {
+        height: 100%;
+        border-radius: 10px
+    }
+
+    .is-books-box {
+        margin-bottom: 0;
+        padding-bottom: .75rem !important;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around
+    }
+
+    .is-books-box::after {
+        content: "";
+        flex: auto;
+        min-width: 290px
+    }
+
+    .is-books-box .is-book {
+        padding: 0 .5rem 1rem;
+        min-height: 125px
+    }
+
+    .is-books-box .is-book .is-content {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+        display: flex
+    }
+
+    .is-books-box .is-author {
+        font-size: small
+    }
+
+    .add-modal-mask {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 99;
+        padding: .5rem;
+        top: 0
+    }
+
+    .add-modal-content .is-menu, .add-modal-content h3 {
+        width: 100%;
+        border-radius: 10px;
+        padding: .5rem;
+        text-align: center
+    }
+
+    .add-modal-content .is-books {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap
+    }
+
+    .add-modal-content .is-books .is-book {
+        border-radius: 10px;
+        padding: 1rem;
+        margin: .5rem
+    }
+
+    .is-book .is-footer {
+        font-size: .8rem;
+        padding-top: .5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center
+    }
+
+    .is-book .is-footer svg {
+        width: 1rem;
+        height: 1rem
+    }
+
+    .is-word-box {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: start;
+        align-items: center;
+        margin-top: 1rem
+    }
+
+    .is-word-box .is-word {
+        padding: 0 18px 10px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center
+    }
+
+    .letter-box {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        flex-wrap: wrap
+    }
+
+    .letter-box i {
+        width: 32px;
+        height: 32px;
+        text-align: center;
+        line-height: 32px;
+        cursor: pointer;
+        margin: 0 3px 0
+    }
+
+    .words-wrapper {
+        display: flex;
+        flex-direction: column
+    }
+
+    .words-wrapper-line {
+        display: flex;
+        flex-direction: row;
+        border-bottom: 1px solid;
+        padding: 13px 0
+    }
+
+    .words-wrapper-line > .word-number {
+        width: 5%
+    }
+
+    .words-wrapper-line > .word {
+        width: 25%;
+        font-weight: 700;
+        font-size: large
+    }
+
+    .words-wrapper-line > .meanings {
+        width: 70%;
+        font-weight: lighter;
+        font-size: small
+    }
+
+    .words-wrapper-line > .meanings .pos {
+        margin-right: .5rem;
+        color: coral;
+        margin-left: 3px
+    }
+
+    .words-wrapper-line > .meanings > p {
+        display: flex;
+        justify-content: start;
+        margin: 3px 0
+    }
+
+    .words-wrapper-line > .meanings > p > input {
+        outline: 0;
+        background: 0 0;
+        border: none;
+        color: inherit;
+        width: 100%
+    }
+
+    .float-up-down {
+        animation: float-up-down 1s ease-in-out infinite
+    }
+
+    @keyframes float-up-down {
+        from {
+            transform: translateY(0)
+        }
+        50% {
+            transform: translateY(-5px)
+        }
+        to {
+            transform: translateY(0)
+        }
+    }
+
+    .explain > p {
+        margin-bottom: 0 !important
+    }
+
+    .phonetic {
+        font: 13px/21px Arial, sans-serif;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap
+    }
+
+    .index {
+        font-weight: lighter;
+        height: 89px
+    }
+
+    .is-list {
+        padding-bottom: 1rem;
+        flex-direction: column;
+        height: fit-content
+    }
+
+    .is-list .is-header {
+        width: 100%;
+        display: flex;
+        justify-content: center
+    }
+
+    .is-list .is-body {
+        border-radius: 10px;
+        overflow: hidden;
+        padding: 1rem;
+        width: 100%
+    }
+
+    th {
+        color: inherit !important
+    }
+
+    .is-single {
+        padding: 10px;
+        margin: auto;
+        flex-direction: column
+    }
+
+    .title {
+        width: 100%;
+        text-align: center;
+        margin: 30px 0
+    }
+
+    .content-title {
+        margin-bottom: 10px;
+        font-weight: 700
+    }
+
+    .is-days {
+        width: 100%;
+        padding: 1rem;
+        border-radius: 10px;
+        flex-direction: column
+    }
+
+    .is-days .is-line {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        padding: 1rem 0;
+        border-bottom: 1px solid;
+        padding: .5rem 0;
+        border-bottom: 1px solid
+    }
+
+    .theme-dark .is-current-line {
+        background-color: var(--dark-theme-background1)
+    }
+
+    .theme-light .is-current-line {
+        background-color: var(--light-theme-background1)
+    }
+
+    .is-day, .learn-day, .review-day {
+        font-size: .6rem;
+        font-weight: lighter;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center
+    }
+
+    .learned-day span {
+        background: 0 0 !important;
+        font-weight: lighter !important;
+        color: #8c8c8c80
+    }
+
+    .is-day {
+        font-weight: 700
+    }
+
+    .learn-day span, .review-day span {
+        width: 48px;
+        height: 33px;
+        border-radius: var(--radius);
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 700
+    }
+
+    .learn-day span {
+        background-color: #ee7040
+    }
+
+    .review-day span {
+        background-color: #a7a7a76a
+    }
+
+    .is-day, .learn-day {
+        width: 65px
+    }
+
+    .review-day {
+        width: 50px
+    }
+
+    .current-day {
+        color: #ff8c00 !important
+    }
+
+    .widget-word-card {
+        border-radius: 5px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between
+    }
+
+    .widget-word-card .is-code {
+        font-size: larger;
+        font-weight: bolder;
+        margin-bottom: 13px
+    }
+
+    .widget-word-card p {
+        margin-bottom: 13px
+    }
+
+    .widget-word-card .is-subheading {
+        font-size: smaller
+    }
+
+    .detail-modal-mask {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: #464850bd;
+        margin: 0 !important;
+        overflow-y: auto;
+        z-index: 99;
+        flex-direction: column
+    }
+    .detail-modal-mask1 {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: #464850bd;
+        margin: 0 !important;
+        overflow-y: auto;
+        z-index: 99;
+        flex-direction: column
+    }
+    .detail-modal-content {
+        display: flex;
+        padding: 1rem 1rem 4rem;
+        flex-direction: column;
+        align-items: center;
+        background: 0 0;
+        overflow-y: scroll
+    }
+
+    .is-detail .is-header {
+        display: flex;
+        justify-content: end
+    }
+
+    .is-detail .is-body {
+        padding-left: 0 !important;
+        padding-right: 0 !important
+    }
+
+    .is-detail .is-content {
+        width: 100%
+    }
+
+    .detail-modal-mask .is-card-line {
+        margin: .8rem 0 0 !important;
+        border-radius: 10px
+    }
+
+    .theme-dark .detail-modal-mask .is-card-line {
+        box-shadow: 0 0 10px #111111ab
+    }
+
+    .theme-light .detail-modal-mask .is-card-line {
+        box-shadow: 0 0 10px #464646
+    }
+
+    .is-card-line h6, .is-detail .is-content h6 {
+        margin-bottom: .8rem
+    }
+
+    .is-card-line p, .is-detail .is-content p {
+        margin-bottom: .5rem
+    }
+
+    .is-detail .phonetic {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        line-height: 100%
+    }
+
+    .exam-modal-mask {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: #464850;
+        padding: 1rem;
+        margin: 0;
+        display: flex;
+        z-index: 99;
+        overflow: hidden;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column
+    }
+
+    .exam-card-wrapper {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-direction: column;
+        height: 100%;
+        width: 100%
+    }
+
+    .exam-card-wrapper .is-result {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center
+    }
+
+    .exam-card-wrapper .is-footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        z-index: 100;
+        width: 100%;
+        margin-top: 1rem
+    }
+
+    .exam-card-wrapper .is-footer .is-buttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 100;
+        width: 100%
+    }
+
+    .exam-card-wrapper .is-body {
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        padding: 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow-y: scroll;
+        border-radius: 10px;
+        position: relative;
+        overflow: hidden
+    }
+
+    .exam-content {
+        width: 100%;
+        max-height: 100%;
+        overflow-y: scroll;
+        margin-top: 3rem
+    }
+
+    .is-pos {
+        font-weight: bolder;
+        margin-right: 3px
+    }
+
+    .theme-dark .is-pos {
+        color: coral
+    }
+
+    .theme-light .is-pos {
+        color: #ee7040
+    }
+
+    .is-button, .is-input {
+        border-radius: 10px !important
+    }
+
+    .exam-content h1 {
+        font-size: xx-large !important;
+        font-weight: bolder !important
+    }
+
+    .exam-content .exam-word-hide {
+        color: #f0f8ff !important;
+        background: #f0f8ff !important;
+        border-radius: 8px;
+        padding: 0 1rem
+    }
+
+    .exam-content .is-content {
+        margin-bottom: 1rem;
+        height: fit-content;
+        font-size: 1rem;
+        line-height: 2rem
+    }
+
+    .theme-light .exam-content .exam-word-hide {
+        border: 3px solid #b9b9b9
+    }
+
+    .is-warning {
+        background-color: #ee7040 !important
+    }
+
+    .color_0 {
+        background: rgba(72, 199, 142, 0)
+    }
+
+    .color_1 {
+        background: rgba(72, 199, 142, .1)
+    }
+
+    .color_2 {
+        background: rgba(72, 199, 142, .2)
+    }
+
+    .color_3 {
+        background: rgba(72, 199, 142, .3)
+    }
+
+    .color_4 {
+        background: rgba(72, 199, 142, .4)
+    }
+
+    .color_5 {
+        background: rgba(72, 199, 142, .5)
+    }
+
+    .color_6 {
+        background: rgba(72, 199, 142, .6)
+    }
+
+    .color_7 {
+        background: rgba(72, 199, 142, .7)
+    }
+
+    .color_8 {
+        background: rgba(72, 199, 142, .8)
+    }
+
+    .color_9 {
+        background: rgba(72, 199, 142, .9)
+    }
+
+
+    .keyboard .row {
+        list-style: none;
+        display: flex
+    }
+
+    .keyboard li {
+        height: 3em;
+        line-height: 3em;
+        letter-spacing: 1px;
+        transition: .3s;
+        text-align: center;
+        font-size: 1em;
+        width: 100%
+    }
+
+
+    .theme-dark .key-color {
+        background-color: #464850;
+        color: #fff;
+        font-weight: bolder
+    }
+
+    .theme-light .key-color {
+        background-color: #fff
+    }
+
+
+    .settings-modal .is-title {
+        font-size: 1.3rem;
+        font-weight: 700;
+        border-bottom: 1px solid
+    }
+
+    .settings-modal .is-body {
+        margin-top: 1rem
+    }
+
+    .settings-modal .is-body label {
+        padding-bottom: .5rem;
+        display: inline-block
+    }
+
+    .settings-modal .is-footer {
+        display: flex;
+        justify-content: center;
+        padding-top: 1rem
+    }
+
+
+    .theme-dark .voice-interval-selected {
+        background: var(--dark-theme-color1);
+        color: var(--dark-theme-background1)
+    }
+
+    .theme-light .voice-interval-selected {
+        background: var(--light-theme-color1);
+        color: var(--light-theme-background1)
+    }
+
+    @media (orientation: portrait) {
+        .single-content {
+            text-align: start;
+            align-items: start !important
+        }
+    }
+
+
+    @keyframes breathe {
+        0% {
+            transform: scale(.95)
+        }
+        50% {
+            transform: scale(1.1)
+        }
+        100% {
+            transform: scale(.95)
+        }
+    }
+
+
+    .theme-dark .pulse-bubble {
+        background-color: var(--dark-theme-color)
+    }
+
+    .theme-light .pulse-bubble {
+        background-color: var(--light-theme-color)
+    }
+
+
+    @keyframes pulse {
+        from {
+            opacity: 1;
+            transform: scale(1)
+        }
+        to {
+            opacity: .25;
+            transform: scale(.75)
+        }
+    }
+
+
+    .exam-type-select-mask {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: #4d4d4d53;
+        z-index: 99
     }
 
     .table, th, thead {
@@ -402,7 +1242,33 @@
 
     .correct-icon-gold {
         color: #ff8c00
-    }</style>
+    }
+
+    .cont,
+
+
+        /* 进度条位置调整 */
+    .cont {
+        position: absolute;
+        top: 7px
+    }
+
+    .cont p {
+        background: linear-gradient(224deg, #005eca 0%, #003f93 100%);
+    }
+
+    /* 进度提示数字展示 */
+    .txt {
+        position: absolute;
+        bottom: -4px;
+        left: 54px;
+    }
+
+    .g-progress {
+        background: conic-gradient(#FFCDB2 0, #FFCDB2 25%, #B5838D 25%, #B5838D);
+    + mask: radial-gradient(transparent, transparent 50 %, #000 50 %, #000 0);
+    }
+    </style>
     <script id="src:https:pagead2googlesyndicationcompageadjsadsbygooglejs?client=ca-pub-6596727505190761"
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6596727505190761"
             type="text/javascript" async="" data-checked-head="true"></script>
@@ -420,20 +1286,26 @@
     <div id="switchThemeBtnBox">
         <div class="switch-btn"><input type="checkbox" id="themeSwitchBtn"><label></label></div>
     </div>
-    <div><a href="/">
+    <div><a name="singleShowButtons" onclick="toggleSingle('main')" style="display: none;">
         <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
-            <path d="M913.706667 512.128c23.552 26.197333 23.893333 60.288 4.48 79.530667-21.034667 20.864-53.973333 18.602667-71.466667 1.834666-17.493333-16.725333-265.301333-279.552-288.128-302.549333-36.053333-36.266667-70.741333-34.133333-104.661333 0-34.133333 34.389333-271.530667 282.88-288.768 297.898667-17.237333 15.104-49.792 18.346667-70.144-1.962667-22.869333-22.869333-19.754667-60.202667-2.048-78.933333 21.461333-22.698667 325.546667-338.133333 343.296-357.376 43.008-46.634667 98.688-45.653333 133.546666-8.192 25.984 27.904 317.013333 339.797333 343.893334 369.749333zM453.418667 375.765333c28.458667-29.696 73.130667-33.664 105.088-0.128 13.781333 14.506667 264.917333 273.706667 264.917333 273.706667v180.138667c-0.085333 27.349333-20.565333 52.992-52.053333 53.376h-160.853334V736.853333c0-20.096-7.125333-31.658667-26.026666-31.488-13.994667 0.128-139.52-0.554667-162.517334-0.384-19.413333 0.128-25.344 15.104-25.429333 31.829334 0 13.397333-0.469333 146.048-0.469333 146.048H239.701333c-32.469333 0.170667-52.992-16.554667-53.205333-47.488-0.085333-15.573333-0.128-187.690667-0.128-187.690667s248.32-252.373333 267.050667-271.914667z"></path>
+            <path d="M851.428571 755.428571q0 22.857143-16 38.857143l-77.714285 77.714286q-16 16-38.857143 16t-38.857143-16l-168-168-168 168q-16 16-38.857143 16t-38.857143-16l-77.714285-77.714286q-16-16-16-38.857143t16-38.857142l168-168-168-168q-16-16-16-38.857143t16-38.857143l77.714285-77.714286q16-16 38.857143-16t38.857143 16l168 168 168-168q16-16 38.857143-16t38.857143 16l77.714285 77.714286q16 16 16 38.857143t-16 38.857143l-168 168 168 168q16 16 16 38.857142z"></path>
+        </svg>
+    </a><a name="singleHideButtons" href="/englishTestFront/html/homepage.html" style="display: flex;">
+        <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <path d="M887.2 707.5c-10-35.3-32-67.3-65.9-96.1-34.1-28.7-69.5-45.7-106.2-51l-18-1c-8 0-15.3 2-22 6-10 5.4-19.4 10-28 14.1-42.1 18-86.8 27-134.1 27s-92-9-134-27l-29-14.1c-6.7-4-13.7-6-21-6l-19 1c-36.7 4.7-71.7 21.2-105.1 49.4-33.3 28.4-55.6 59.9-67 94.6-15.3 32-24.4 79-27 141.1 0 6 2.2 12.3 6.5 19 4.3 6.7 9.5 11.7 15.5 15 4 2.7 9.2 5.7 15.5 9 6.3 3.3 21.3 9.7 45 19.1 23.7 9.3 48.9 17.5 75.5 24.5 26.7 7 62 13.4 106 19.1 44 5.6 89.7 8.5 137.1 8.5s92.9-2.8 136.5-8.1c43.7-5.4 79.6-11.8 107.6-19.5 28-7.7 52.6-15.7 74.1-24 21.4-8.4 36.8-15 46.5-20s14.5-7.8 14.5-8.5c6-3.3 11.3-8.5 15.5-15.5 4.3-7 6.5-13.2 6.5-18.5-0.6-12.7-1.5-25.1-2.5-37-1-12-2.2-22.6-4-31.5-1.5-8.4-3.2-16.7-5-25-1.6-7.6-3.3-14.1-5-19.5-1.6-5.4-3.1-10-4.5-14.1-1.3-4-2.6-6.7-4-8l-1-3zM512 524.3c63.4 0 117.5-22.5 162.5-67.5 45.1-44.9 67.6-99.1 67.6-162.5 0-63.3-22.5-117.5-67.6-162.5-45-45-99.1-67.5-162.5-67.5s-117.5 22.5-162.6 67.5c-45 45-67.5 99.1-67.5 162.5S304.5 412 349.5 457c45 45 99.3 67.3 162.5 67.3z"></path>
         </svg>
     </a></div>
 </header>
 <main id="app" data-v-app="">
     <section>
         <div class="container is-max-desktop p1 center row">
-            <div class="buttons-wrapper is-shadow"><a href="/englishTestFront/html/main.html" class="base-wrapper buttons-item">
+            <div class="buttons-wrapper is-shadow"><a onclick="learnWord()"
+                                                      class="base-wrapper buttons-item">
                 <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
                     <path d="M975.258 211.098a128 128 0 0 0-128-128H710.144a209.147 209.147 0 0 0-148.326 61.644 41.83 41.83 0 0 0-12.135 29.492V958.31a332.186 332.186 0 0 1 207.053-72.448h90.522a128 128 0 0 0 128-128V211.046z m-924.058 0a128 128 0 0 1 128-128h137.165c55.654 0 109.056 22.17 148.275 61.644 7.782 7.834 12.186 18.432 12.186 29.492V958.31a332.186 332.186 0 0 0-207.104-72.448H179.2a128 128 0 0 1-128-128V211.046z"></path>
                 </svg>
-                <label class="is-text">去学习</label></a><a href="/englishTestFront/html/review.html" class="base-wrapper buttons-item">
+                <label class="is-text">去学习</label></a><a href="/englishTestFront/html/review.html"
+                                                         class="base-wrapper buttons-item">
                 <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
                     <path d="M672 856v56c0 20.898-13.36 38.668-32 45.258V976c0 26.51-21.49 48-48 48h-160c-26.51 0-48-21.49-48-48v-18.742c-18.64-6.59-32-24.36-32-45.258v-56c0-13.254 10.746-24 24-24h272c13.254 0 24 10.746 24 24z m-286.214-88c-19.814 0-37.652-12.156-44.752-30.654C263.394 535.082 160 555.462 160 352 160 157.606 317.61 0 512 0s352 157.606 352 352c0 203.462-103.394 183.082-181.032 385.346-7.1 18.498-24.94 30.654-44.752 30.654H385.786zM352 352c0-88.224 71.776-160 160-160 17.674 0 32-14.328 32-32s-14.326-32-32-32c-123.514 0-224 100.486-224 224 0 17.672 14.328 32 32 32s32-14.328 32-32z"></path>
                 </svg>
@@ -453,8 +1325,9 @@
                     <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
                         <path d="M640 256 384 256 213.333333 256 213.333333 170.666667 384 170.666667C384 147.093333 403.093333 128 426.666667 128L597.333333 128C620.906667 128 640 147.093333 640 170.666667L810.666667 170.666667 810.666667 256 640 256ZM768 810.666667C768 857.792 729.792 896 682.666667 896L341.333333 896C294.208 896 256 857.792 256 810.666667L256 298.666667 768 298.666667 768 810.666667Z"></path>
                     </svg>
-                    <label class="is-text">已移除</label></a><a href="/englishTestFront/html/VocabularyBook.html" class="center"
-                                                             style="width: 45px; height: 45px; margin: 0.5rem; font-size: 0.7rem; font-weight: lighter;" >
+                    <label class="is-text">点我测试词汇量</label></a><a href="/englishTestFront/html/VocabularyBook.html"
+                                                                 class="center"
+                                                                 style="width: 45px; height: 45px; margin: 0.5rem; font-size: 0.7rem; font-weight: lighter;">
                     <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
                         <path d="M509.606998 104.904235c-24.043602 0-45.922912 13.226233-56.177464 33.95637L356.189863 336.302419l-223.674269 32.54216c-22.983457 3.304256-42.100864 18.718317-49.481971 39.659255-7.381108 21.048385-1.812275 44.23241 14.431687 60.033281l163.916257 160.125931-38.011732 222.016513c-3.868097 22.408359 6.03239 44.819788 25.458835 57.94676 10.69662 7.116071 23.204491 10.784624 35.757388 10.784624 10.298554 0 20.663622-2.475378 30.055526-7.337105l194.987926-102.7205L704.662463 912.072815c9.369392 4.861728 19.712971 7.337105 29.990035 7.337105 12.57541 0 25.082258-3.668553 35.778878-10.784624 19.426445-13.126972 29.305443-35.538401 25.460882-57.94676l-38.012755-222.016513 163.937746-160.125931c16.22145-15.812127 21.810748-38.984896 14.408151-60.033281-7.402597-20.940938-26.51898-36.353976-49.503461-39.659255L663.04767 336.302419l-97.240695-197.441814C555.619962 118.131491 533.695626 104.904235 509.606998 104.904235L509.606998 104.904235z"></path>
                     </svg>
@@ -462,105 +1335,201 @@
             </div>
         </div>
 
+        <div class="container p1 is-max-desktop"
+             style="display: flex; flex-direction: row; justify-content: space-between;">
+            <div class="base-wrapper calendar-wrapper is-shadow">
+                <div class="calendar-content is-shadow">
+                    <div class="is-header">
+                        <div class="is-header-left" style="display: flex; justify-content: start; align-items: center;">
+                            <h3 style="font-weight: 700; font-size: 1.3rem;">我的数据</h3>
+
+                        </div>
+                        <div class="is-header-left" style="display: flex; justify-content: start;align-items: center;">
+                            <a onclick=" showWordInfo()"
+                               style="display: flex;">
+                                <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M511.9935 699.733c-102.4 0-187.733-85.333-187.733-187.733s85.333-187.733 187.733-187.733S699.7265 409.6 699.7265 512s-85.333 187.733-187.733 187.733z m472.177-250.311c-5.689-22.756-22.756-39.822-45.511-45.511l-11.378-5.689c-34.133-11.378-68.267-34.133-91.022-68.267s-22.756-73.956-17.067-113.778l5.689-11.378c5.689-17.067 0-45.511-17.067-62.578 0 0-17.067-11.378-56.889-34.133s-56.889-28.444-56.889-28.444c-22.756-5.689-45.511 0-62.578 17.067l-11.378 11.378c-28.444 22.756-68.267 39.822-108.089 39.822s-79.644-17.067-108.089-39.822l-5.689-17.067c-17.067-11.378-45.511-22.756-62.578-11.378 0 0-17.067 5.689-56.889 28.444s-56.889 34.133-56.889 34.133c-17.067 17.067-28.444 39.822-22.756 62.578l5.689 17.067c11.378 34.133 5.689 73.956-17.067 113.778-22.756 28.444-51.2 51.2-91.022 62.578l-11.378 5.689c-22.756 0-39.822 22.756-45.511 45.511 0 0-5.689 17.067-5.689 62.578s5.689 62.578 5.689 62.578c5.689 22.756 22.756 39.822 45.511 45.511l11.378 5.689c34.133 11.378 68.267 34.133 91.022 68.267s22.756 73.956 17.067 113.778l-5.689 11.378c-5.689 17.067 0 45.511 17.067 62.578 0 0 17.067 11.378 56.889 34.133s56.889 28.444 56.889 28.444c22.756 5.689 45.511 0 62.578-17.067l11.378-11.378c28.444-28.444 62.578-39.822 108.089-39.822 39.822 0 79.644 17.067 108.089 39.822l11.378 11.378c17.067 17.067 39.822 22.756 62.578 17.067 0 0 17.067-5.689 56.889-28.444s56.889-34.133 56.889-34.133 22.756-39.822 17.067-62.578l-5.689-17.067c-11.378-34.133-5.689-73.956 17.067-108.089s51.2-56.889 91.022-68.267l17.067-5.689c22.756-5.689 39.822-22.756 45.511-45.511 0 0 5.689-17.067 5.689-62.578-5.689-45.511-11.378-62.578-11.378-62.578z"></path>
+                                </svg>
+                            </a></div>
+                    </div>
+                    <div class="container p1 is-max-desktop">
+                        <div class="is-shadow radius" style="display: flex; overflow: hidden;">
+                            <div style="display: flex; flex-direction: row; justify-content: space-around; width: 100%;">
+                                <a
+                                        class="center"
+                                        style="width: 90px; height: 45px; margin: 0.5rem; font-size: 0.7rem; font-weight: lighter;">
+                                    <h2 style="font-weight: 700; font-size: 1.3rem;" id="todayNeedReview"></h2>
+                                    <label class="is-text">今日需复习</label></a>
+                            </div>
+                            <div style="display: flex; flex-direction: row; justify-content: space-around; width: 100%;">
+                                <a
+                                        class="center"
+                                        style="width: 90px; height: 45px; margin: 0.5rem; font-size: 0.7rem; font-weight: lighter;">
+                                    <h2 style="font-weight: 700; font-size: 1.3rem;">180</h2>
+                                    <label class="is-text">今日学习时长</label></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container p1 is-max-desktop">
+                        <div class="is-shadow radius" style="display: flex; overflow: hidden;">
+                            <div style="display: flex; flex-direction: row; justify-content: space-around; width: 100%;">
+                                <a
+                                        class="center"
+                                        style="width: 90px; height: 45px; margin: 0.5rem; font-size: 0.7rem; font-weight: lighter;">
+                                    <h2 style="font-weight: 700; font-size: 1.3rem;" id="studingLevel"></h2>
+                                    <label class="is-text">正在学习</label></a>
+                            </div>
+                            <div style="display: flex; flex-direction: row; justify-content: space-around; width: 100%;">
+                                <a
+                                        class="center"
+                                        style="width: 90px; height: 45px; margin: 0.5rem; font-size: 0.7rem; font-weight: lighter;">
+                                    <h2 style="font-weight: 700; font-size: 1.3rem;" id="studied"></h2>
+                                    <label class="is-text">学习进度</label></a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
     </section>
-    <aside style="position: fixed; bottom: 0px; right: 0px; padding: 0.5rem; background: 0px 0px;"><a href="/dict"
-                                                                                                      class="is-shadow is-bg"
-                                                                                                      style="display: flex; padding: 0.6rem; border-radius: 10px; margin-bottom: 0.5rem; justify-content: center;">
-        <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
-            <path d="M465.5 237.1h-82v335.6h82c59.7 0 100.7-14.9 130.5-41 26.1-26.1 41-70.9 41-126.8 0-59.7-14.9-100.7-41-126.8-26.1-29.8-70.8-41-130.5-41z"></path>
-            <path d="M756.4 61.9H226.8c-59.7 0-108.1 48.5-108.1 108.1v682.4c0 59.7 48.5 108.1 108.1 108.1h529.5c41 0 78.3-37.3 93.2-74.6h-619c-22.4 0-41-18.6-41-41v-37.3c0-22.4 22.4-41 44.7-41H719c82 0 145.4-67.1 145.4-149.2V166.3c0.1-56-48.4-104.4-108-104.4zM655.7 576.5c-41 41-97 63.4-175.3 63.4H308.9V173.7h171.5c78.3 0 134.2 22.4 175.3 63.4 37.3 41 55.9 97 55.9 171.5 0 70.9-18.6 126.9-55.9 167.9z"></path>
-        </svg>
-    </a><a href="/games" class="is-shadow is-bg"
-           style="display: flex; padding: 0.6rem; border-radius: 10px; margin-bottom: 0.5rem; justify-content: center;">
-        <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
-            <path d="M695.296 90.112h-135.168v0.512H332.8c-176.128 0-318.976 142.336-318.976 318.464v341.504c0 62.976 51.2 113.664 113.664 113.664h91.136c51.712 0 114.176-31.232 145.408-72.704l68.608-91.136c6.656-8.704 25.6-18.432 36.352-18.432h90.624c10.752 0 30.208 9.728 36.352 18.432l68.096 91.136c31.232 41.472 93.696 72.704 145.408 72.704h91.136c62.976 0 113.664-51.2 113.664-113.664V409.088c0-176.128-142.336-318.976-318.976-318.976zM400.896 454.656h-45.568v45.568c0 25.088-20.48 45.568-45.568 45.568s-45.568-20.48-45.568-45.568v-45.568h-45.568c-25.088 0-45.568-20.48-45.568-45.568s20.48-45.568 45.568-45.568h45.568v-45.568c0-25.088 20.48-45.568 45.568-45.568s45.568 20.48 45.568 45.568V363.52h45.568c25.088 0 45.568 20.48 45.568 45.568s-20.48 45.568-45.568 45.568z m204.8 0c-25.088 0-45.568-20.48-45.568-45.568s20.48-45.568 45.568-45.568 45.568 20.48 45.568 45.568-20.48 45.568-45.568 45.568z m113.664 113.664c-25.088 0-45.568-20.48-45.568-45.568s20.48-45.568 45.568-45.568 45.568 20.48 45.568 45.568-20.48 45.568-45.568 45.568z m0-227.328c-25.088 0-45.568-20.48-45.568-45.568s20.48-45.568 45.568-45.568 45.568 20.48 45.568 45.568-20.48 45.568-45.568 45.568z m113.664 113.664c-25.088 0-45.568-20.48-45.568-45.568s20.48-45.568 45.568-45.568 45.568 20.48 45.568 45.568-20.48 45.568-45.568 45.568z"></path>
-        </svg>
-    </a></aside>
-    <div style="position: fixed; inset: 0px; z-index: 99; padding: 0.5rem; overflow-y: auto; display: none;">
-        <div class="container is-max-desktop">
-            <div class="is-shadow p1-2 radius"
-                 style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                <div></div>
-                <h3 style="font-weight: 700; font-size: 1.3rem;">已移除的熟词</h3><a class="center p1-2">
-                <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M851.428571 755.428571q0 22.857143-16 38.857143l-77.714285 77.714286q-16 16-38.857143 16t-38.857143-16l-168-168-168 168q-16 16-38.857143 16t-38.857143-16l-77.714285-77.714286q-16-16-16-38.857143t16-38.857142l168-168-168-168q-16-16-16-38.857143t16-38.857143l77.714285-77.714286q16-16 38.857143-16t38.857143 16l168 168 168-168q16-16 38.857143-16t38.857143 16l77.714285 77.714286q16 16 16 38.857143t-16 38.857143l-168 168 168 168q16 16 16 38.857142z"></path>
-                </svg>
-            </a></div>
-            <div class="is-shadow" style="padding: 0.5rem 0.5rem 1rem; border-radius: 10px; min-height: 80%;"><p
-                    style="padding: 1rem; text-align: center;">暂无已移除的熟词</p><!----></div>
-        </div>
-    </div>
-    <div style="position: fixed; inset: 0px; z-index: 99; padding: 0.5rem; overflow-y: auto; display: none;">
-        <div class="center"
-             style="position: fixed; inset: 0px; z-index: 99; background-color: rgba(0, 0, 0, 0.48); padding: 1rem; display: none;">
-            <div class="width-full is-bg stop-propagation"
-                 style="display: flex; justify-content: space-between; margin-bottom: 1rem; border-radius: 10px; align-items: center; max-width: 660px; padding: 5px;">
-                <a class="btn-bg ellipsis" style="width: 44px; height: 44px;">
-                    <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M851.456 755.419429q0 22.820571-16.018286 38.838857l-77.677714 77.677714q-16.018286 16.018286-38.838857 16.018286t-38.838857-16.018286l-168.009143-168.009143-168.009143 168.009143q-16.018286 16.018286-38.838857 16.018286t-38.838857-16.018286l-77.677714-77.677714q-16.018286-16.018286-16.018286-38.838857t16.018286-38.838857l168.009143-168.009143-168.009143-168.009143q-16.018286-16.018286-16.018286-38.838857t16.018286-38.838857l77.677714-77.677714q16.018286-16.018286 38.838857-16.018286t38.838857 16.018286l168.009143 168.009143 168.009143-168.009143q16.018286-16.018286 38.838857-16.018286t38.838857 16.018286l77.677714 77.677714q16.018286 16.018286 16.018286 38.838857t-16.018286 38.838857l-168.009143 168.009143 168.009143 168.009143q16.018286 16.018286 16.018286 38.838857z"></path>
-                    </svg>
-                </a><input class="word-input" placeholder="输入你想添加的单词" style="width: 70%; max-width: 230px;"> <a
-                    class="btn-bg">
-                <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M832.234 448H575.25V191.016c0-35.346-28.653-64-64-64s-64 28.654-64 64V448H191.766c-35.346 0-64 28.654-64 64s28.654 64 64 64H447.25v256.984c0 35.346 28.654 64 64 64s64-28.654 64-64V576h256.984c35.346 0 64-28.653 64-64s-28.654-64-64-64z"></path>
-                </svg>
-            </a></div>
-        </div>
-        <div class="container is-max-desktop" style="padding-bottom: 1rem; border-radius: 10px; min-width: 280px;">
-            <div class="width-full is-shadow p1-2 radius"
-                 style="display: flex; justify-content: space-between; margin-bottom: 1rem; border-radius: 10px;">
-                <a></a>
-                <h3 class="center" style="text-align: center; font-weight: 700; font-size: 1.3rem;">收藏夹</h3><a
-                    class="center p1-2">
-                <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M851.428571 755.428571q0 22.857143-16 38.857143l-77.714285 77.714286q-16 16-38.857143 16t-38.857143-16l-168-168-168 168q-16 16-38.857143 16t-38.857143-16l-77.714285-77.714286q-16-16-16-38.857143t16-38.857142l168-168-168-168q-16-16-16-38.857143t16-38.857143l77.714285-77.714286q16-16 38.857143-16t38.857143 16l168 168 168-168q16-16 38.857143-16t38.857143 16l77.714285 77.714286q16 16 16 38.857143t-16 38.857143l-168 168 168 168q16 16 16 38.857142z"></path>
-                </svg>
-            </a></div>
-            <div class="width-full is-shadow p1-2 radius"
-                 style="display: flex; justify-content: right; margin-bottom: 1rem; border-radius: 10px;"><a
-                    class="center p1-2" style="margin-right: 1rem;">
-                <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M423.468266 528.631684c-14.328836-12.281859-33.263368-18.422789-56.803598-18.422788h-29.68116v151.476261h28.657671c25.075462 0 44.521739-6.652674 58.338831-20.469765 13.817091-13.817091 20.981509-32.751624 20.981509-57.315342 0-24.563718-7.164418-42.986507-21.493253-55.268366z"
-                          fill="" p-id="6765"></path>
-                    <path d="M876.873563 165.805097l-29.169415-29.169415-29.169415-29.169415c-67.550225-68.573713-107.466267-107.466267-149.429286-107.466267H354.382809c-86.996502 0-157.617191 70.62069-157.617192 157.617191v275.318341h-117.701149c-21.493253 0-39.404298 17.911044-39.404298 39.404298v236.425787c0 21.493253 17.911044 39.404298 39.404298 39.404298h118.212893v118.212894c0 86.996502 70.62069 157.617191 157.617192 157.617191h472.33983c86.996502 0 157.617191-70.62069 157.617191-157.617191V314.722639c-0.511744-41.451274-39.404298-81.87906-107.978011-148.917542zM229.517241 593.623188c-13.817091 11.770115-30.704648 17.3993-51.174412 16.887557h-25.587207v73.17941h-25.587206V487.692154h55.78011c20.981509 0 37.869065 5.117441 49.127436 15.352324 11.770115 10.234883 17.3993 25.075462 17.3993 44.009995 0.511744 18.934533-6.652674 34.286857-19.958021 46.568715z m676.013993 272.247876c0 43.498251-35.310345 78.808596-78.808595 78.808596H354.382809c-43.498251 0-78.808596-35.310345-78.808596-78.808596v-118.212893h393.531234c21.493253 0 39.404298-17.911044 39.404298-39.404298V472.33983c0-21.493253-17.911044-39.404298-39.404298-39.404298H275.574213V157.617191c0-43.498251 35.310345-78.808596 78.808596-78.808595h287.088455c28.145927 7.164418 28.145927 41.963018 28.145927 76.761619v120.25987c0 21.493253 17.911044 39.404298 39.404298 39.404298h118.212894c39.404298 0 78.808596 0 78.808596 39.404298v511.232383z m-593.623188-182.180909V487.692154h55.78011c29.681159 0 54.244878 8.69965 74.202898 26.09895 19.958021 17.3993 29.681159 40.427786 29.68116 69.597202 0 30.192904-9.723138 54.756622-29.68116 73.17941-19.958021 18.422789-45.033483 27.634183-76.249875 27.634183H311.908046z m319.328336-107.978011v22.516742h-70.108946v85.973013h-25.587206V487.692154h101.325337v22.516742h-75.738131v65.503248h70.108946z"></path>
-                    <path d="M178.342829 509.697151h-26.098951v78.296852h23.54023c15.352324 0 27.122439-3.582209 35.310345-10.234883 8.187906-7.164418 12.281859-16.887556 12.281859-30.192903 0-25.075462-14.84058-37.869065-45.033483-37.869066z"></path>
-                </svg>
-            </a><a class="center p1-2" style="margin-right: 1rem;">
-                <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M354.401 0c-87.04 0-157.44 70.559-157.44 157.599V433.28H78.72c-21.658 0-39.363 17.7-39.363 39.363V708.96c0 21.658 17.7 39.358 39.363 39.358h118.241V866.4c0 87.04 70.4 157.599 157.44 157.599H827.04c87.04 0 157.598-70.559 157.598-157.599V315.034c0-41.749-38.988-81.93-107.52-149.28L848 136.633l-29.123-29.112C751.54 38.989 711.393 0 669.6 0H354.406z m0 78.72h287.202c28.354 7.091 27.996 42.138 27.996 76.8v120.161c0 21.658 17.7 39.358 39.362 39.358H827.04c39.388 0 78.878-0.026 78.878 39.362v512c0 43.32-35.553 78.879-78.878 78.879H354.406c-43.325 0-78.72-35.558-78.72-78.879V748.32h393.918c21.663 0 39.362-17.695 39.362-39.358V472.643c0-21.663-17.7-39.363-39.362-39.363H275.68V157.599c0-43.32 35.395-78.879 78.72-78.879zM166.554 503.839h121.922V524h-49.92v155.52h-22.082v-155.52h-49.92V503.84z m128.64 0h24.002l39.358 67.2 40.32-67.2h23.04l-50.868 83.527 54.718 92.16h-24.96l-43.198-75.842-43.202 75.842h-23.04l54.722-92.16-50.882-83.522z m133.442 0h121.918V524h-49.92v155.52h-22.068v-155.52h-49.92V503.84z"></path>
-                </svg>
-            </a><a class="center p1-2">
-                <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M512 930c-53 0-96-43-96-96V190c0-53 43-96 96-96s96 43 96 96v644c0 53-43 96-96 96z"></path>
-                    <path d="M930 512c0 53-43 96-96 96H190c-53 0-96-43-96-96s43-96 96-96h644c53 0 96 43 96 96z"></path>
-                </svg>
-            </a></div>
-            <div class="is-shadow radius" style="padding: 1rem 0.5rem 3rem; margin-bottom: 1rem;">
-                <div class="width-full flex-row"
-                     style="justify-content: space-between; border-bottom: 2px solid; margin-bottom: 0.5rem; padding: 0.5rem 0.5rem 1rem;">
-                    <div style="width: 33px;">#</div>
-                    <div style="width: 130px; padding: 0px 8px 0px 0px;">单词</div>
-                    <div style="width: 100%; padding: 0px 8px 0px 0px;">释义</div>
-                    <div style="width: 66px;">操作</div>
+    <div class="columns detail-modal-mask" style="user-select: text;" id="definition">
+
+        <div class="detail-modal-content">
+
+            <div class="card column is-half-desktop is-full-touch is-detail is-content is-card-line"
+                 onclick="window.event.stopPropagation();">
+                <div class="is-header">
+                    <button class="delete" onclick="hideWordInfo()"
+                            style="position: absolute; top: 0.5rem; right: 0.5rem;"></button>
+                </div>
+                <div class="container is-max-desktop is-books-box">
+                    <div class="tile is-parent is-4 px-4 py-2" style="min-width: 290px;" onclick="ChooseGaozhong()"><a
+                            class="tile is-child widget-book is-shadow"
+                            style="position: relative; overflow: hidden;">
+                        <div class="is-body"><h3 class="is-title" id="GaoZhong">GaoZhong</h3>
+                            <p class="is-subheading">词汇量 3665</p>
+                            <p class="is-content">高中常见词汇</p><!----></div>
+
+                        <span style="position: absolute; top: 0.2rem; left: -2.2rem; width: 6rem; transform: rotate(-45deg); background: rgb(35, 188, 153); text-align: center; font-weight: bolder;"
+                              id="GaoZhong_ing">在背</span></a>
+                    </div>
+
+
+                    <div class="tile is-parent is-4 px-4 py-2" style="min-width: 290px;" onclick="ChooseKaoYan()"><a
+                            class="tile is-child widget-book is-shadow"
+                            style="position: relative; overflow: hidden;">
+                        <div class="is-body"><h3 class="is-title" id="KaoYan">KaoYan</h3>
+                            <p class="is-subheading">词汇量 1341</p>
+                            <p class="is-content">考研英语</p><!----></div>
+                        <!----> <span
+                            style="position: absolute; top: 0.2rem; left: -2.2rem; width: 6rem; transform: rotate(-45deg); background: rgb(35, 188, 153); text-align: center; font-weight: bolder;"
+                            id="KaoYan_ing">在背</span></a>
+
+
+                    </div>
+
+
+                    <div class="tile is-parent is-4 px-4 py-2" style="min-width: 290px;" onclick="ChooseCET6()"><a
+                            class="tile is-child widget-book is-shadow"
+                            style="position: relative; overflow: hidden;">
+                        <div class="is-body"><h3 class="is-title" id="CET6">CET6</h3>
+                            <p class="is-subheading">词汇量 1228</p>
+                            <p class="is-content">英语六级</p><!----></div>
+                        <span style="position: absolute; top: 0.2rem; left: -2.2rem; width: 6rem; transform: rotate(-45deg); background: rgb(35, 188, 153); text-align: center; font-weight: bolder;"
+                              id="CET6_ing">在背</span></a>
+
+
+                    </div>
+                    <div class="tile is-parent is-4 px-4 py-2" style="min-width: 290px;" onclick="ChooseCET4()"><a
+                            class="tile is-child widget-book is-shadow"
+                            style="position: relative; overflow: hidden;">
+                        <div class="is-body"><h3 class="is-title" id="CET4">CET4</h3>
+                            <p class="is-subheading">词汇量 1162</p>
+                            <p class="is-content">英语四级</p><!----></div>
+                        <span style="position: absolute; top: 0.2rem; left: -2.2rem; width: 6rem; transform: rotate(-45deg); background: rgb(35, 188, 153); text-align: center; font-weight: bolder;"
+                              id="CET4_ing">在背</span></a>
+
+
+                    </div>
+
+
                 </div>
             </div>
-            <div class="is-shadow radius flex-row"
-                 style="justify-content: space-between; display: none; align-items: center; padding: 0px 1rem;"><i
-                    style="font-size: small;">共0个</i> <a class="p1" style="display: none;">上一页 </a><a class="p1"
-                                                                                                      style="display: none;">下一页 </a><i
-                    style="font-size: small;">第1页</i></div>
+            <div class="card column is-half-desktop is-full-touch is-detail is-content is-card-line"
+                 onclick="window.event.stopPropagation();"><h6 class="is-text">请选择每组学习单词的个数</h6>
+                <div class="is-header is-shadow"
+                     style="justify-content: space-between; border-radius: 10px; margin-bottom: 1rem; flex-direction: column;">
+                    <div style="justify-content: space-between; padding: 1rem; border-radius: 10px; flex-direction: row; display: flex;">
+                        <button class="is-button is-bg is-dark"
+                                style="width: 58px; margin-left: 5px; padding: 0.3rem 0.8rem;" id="one"
+                                onclick="one5()">10
+                        </button>
+                        <button class="is-button is-bg is-dark"
+                                style="width: 58px; margin-left: 5px; padding: 0.3rem 0.8rem;" id="two"
+                                onclick="two5()">15
+                        </button>
+                        <button class="is-button is-bg is-dark"
+                                style="width: 58px; margin-left: 5px; padding: 0.3rem 0.8rem;" id="three"
+                                onclick="three5()">20
+                        </button>
+                        <button class="is-button is-bg is-dark"
+                                style="width: 58px; margin-left: 5px; padding: 0.3rem 0.8rem;" id="four"
+                                onclick="four5()">25
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="card column is-half-desktop is-full-touch is-detail is-content is-card-line"
+                 onclick="window.event.stopPropagation();">
+                <div class="card-footer" style="border: 0px;"><a class="card-footer-item" style="padding: 0px;"
+                                                                 onclick="hideWordInfo()">
+
+                    <span style="margin-left: 5px;">取消</span></a><a target="_blank" class="card-footer-item"
+                                                                    style="padding: 0px;"
+                                                                    onclick="sendChooseReslut()">
+
+                    <span style="margin-left: 5px;">确定</span></a></div>
+            </div>
         </div>
-    </div><!----></main>
-<footer>
-    <div>
-        <div><a style="font-size:small;color:#7b7b7bed!important;" href="https://support.qq.com/product/474009"
-                target="_blank">意见 · 反馈</a><a style="font-size:small;color:#7b7b7bed!important;" href="/about"> · 关于</a>
-        </div>
-        <div><span style="font-size:small;color:#7b7b7bed!important;"></span></div>
-        <div><span style="font-size:small;color:#7b7b7bed!important;">www.wordforest.cn all rights reserved.</span>
+        <div class="is-header is-shadow"
+             style="justify-content: space-between; border-radius: 10px; margin-bottom: 1rem; flex-direction: column;">
+            <div style="justify-content: space-between; padding: 1rem; border-radius: 10px; flex-direction: row; display: flex;">
+                <div style="display: flex; justify-content: center; align-items: center; padding: 0px 0.8rem;"><a
+                        style="display: flex;">
+                    <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M511.9935 699.733c-102.4 0-187.733-85.333-187.733-187.733s85.333-187.733 187.733-187.733S699.7265 409.6 699.7265 512s-85.333 187.733-187.733 187.733z m472.177-250.311c-5.689-22.756-22.756-39.822-45.511-45.511l-11.378-5.689c-34.133-11.378-68.267-34.133-91.022-68.267s-22.756-73.956-17.067-113.778l5.689-11.378c5.689-17.067 0-45.511-17.067-62.578 0 0-17.067-11.378-56.889-34.133s-56.889-28.444-56.889-28.444c-22.756-5.689-45.511 0-62.578 17.067l-11.378 11.378c-28.444 22.756-68.267 39.822-108.089 39.822s-79.644-17.067-108.089-39.822l-5.689-17.067c-17.067-11.378-45.511-22.756-62.578-11.378 0 0-17.067 5.689-56.889 28.444s-56.889 34.133-56.889 34.133c-17.067 17.067-28.444 39.822-22.756 62.578l5.689 17.067c11.378 34.133 5.689 73.956-17.067 113.778-22.756 28.444-51.2 51.2-91.022 62.578l-11.378 5.689c-22.756 0-39.822 22.756-45.511 45.511 0 0-5.689 17.067-5.689 62.578s5.689 62.578 5.689 62.578c5.689 22.756 22.756 39.822 45.511 45.511l11.378 5.689c34.133 11.378 68.267 34.133 91.022 68.267s22.756 73.956 17.067 113.778l-5.689 11.378c-5.689 17.067 0 45.511 17.067 62.578 0 0 17.067 11.378 56.889 34.133s56.889 28.444 56.889 28.444c22.756 5.689 45.511 0 62.578-17.067l11.378-11.378c28.444-28.444 62.578-39.822 108.089-39.822 39.822 0 79.644 17.067 108.089 39.822l11.378 11.378c17.067 17.067 39.822 22.756 62.578 17.067 0 0 17.067-5.689 56.889-28.444s56.889-34.133 56.889-34.133 22.756-39.822 17.067-62.578l-5.689-17.067c-11.378-34.133-5.689-73.956 17.067-108.089s51.2-56.889 91.022-68.267l17.067-5.689c22.756-5.689 39.822-22.756 45.511-45.511 0 0 5.689-17.067 5.689-62.578-5.689-45.511-11.378-62.578-11.378-62.578z"></path>
+                    </svg>
+                </a></div>
+
+            </div>
         </div>
     </div>
-</footer>
+
+<!--    <div class="columns detail-modal-mask1" style="user-select: text;" id="waringToReview">-->
+
+
+<!--        <div class="tile is-parent is-4 px-4 py-2" style="min-width: 300px;"><a-->
+<!--                class="is-button is-shadow is-text radius"-->
+<!--                style="position: relative; overflow: hidden;" align="center">-->
+<!--            <div class="is-body"><h3 class="is-title">Waring</h3>-->
+<!--                <p class="is-subheading">有单词需要复习，请先完成复习！</p>-->
+<!--                &lt;!&ndash;&ndash;&gt;</div>-->
+<!--        </a>-->
+
+
+<!--        </div>-->
+
+
+<!--    </div>-->
+
+</main>
+
 
 <ins class="adsbygoogle adsbygoogle-noablate" data-adsbygoogle-status="done" style="display: none !important;"
      data-ad-status="unfilled">
@@ -576,17 +1545,179 @@
                 data-google-container-id="a!1" data-load-complete="true"></iframe>
     </div>
 </ins>
-<iframe src="https://www.google.com/recaptcha/api2/aframe" width="0" height="0" style="display: none;"></iframe>
+
 </body>
 <script>
-    function showreview(){
-        var div=$("getReview").get(0);
-        if(div.style.display=""){
-            div.style.display="none";
-        }else {
-            div.style.display="";
+    $('#definition').hide();
+    // $('#waringToReview').hide();
+    var user;
+
+    function learnWord() {
+        location.href = "/englishTestFront/html/main.html"
+        if (document.getElementById("todayNeedReview").text == '0') {
+            location.href = "/englishTestFront/html/main.html"
+        } else {
+            $('#waringToReview').show();
         }
     }
+
+    //获取用户UserDTO信息
+
+    $(document).ready(function () {
+        $.ajax({
+            url: '/studentFunction/user',
+            method: 'get',
+            dataType: 'json',
+            async: false,
+            success: function (response) {
+                user = response.data;
+                console.log(user.todayNeedReview);
+
+                document.getElementById("studied").innerHTML = response.data.studyed;
+                document.getElementById("todayNeedReview").innerHTML = response.data.todayNeedReview;
+                document.getElementById("studingLevel").innerHTML = response.data.level + "词汇";
+
+            }
+        })
+    });
+
+
+    function showreview() {
+        var div = $("getReview").get(0);
+        if (div.style.display = "") {
+            div.style.display = "none";
+        } else {
+            div.style.display = "";
+        }
+    }
+
+    var groupConut = 0
+
+    function allHide() {
+        $('#GaoZhong_ing').hide();
+        $('#KaoYan_ing').hide();
+        $('#CET4_ing').hide();
+        $('#CET6_ing').hide();
+        document.getElementById("one").setAttribute("class", "is-button is-bg is-dark")
+
+        document.getElementById("two").setAttribute("class", "is-button is-bg is-dark")
+        document.getElementById("three").setAttribute("class", "is-button is-bg is-dark")
+        document.getElementById("four").setAttribute("class", "is-button is-bg is-dark")
+    }
+
+    function showWordInfo() {
+        allHide();
+        console.log(user);
+        $('#definition').show();
+        var temp = user.level + '_ing';
+        $('#' + temp).show();
+        var temp1 = user.count
+        groupConut = user.count
+        if (temp1 / 5 == 2) {
+            document.getElementById("one").setAttribute("class", "is-button is-bg is-bg-orange")
+
+        } else if (temp1 / 5 == 3) {
+            document.getElementById("two").setAttribute("class", "is-button is-bg is-bg-orange")
+        } else if (temp1 / 5 == 4) {
+            document.getElementById("three").setAttribute("class", "is-button is-bg is-bg-orange")
+
+        } else {
+            document.getElementById("four").setAttribute("class", "is-button is-bg is-bg-orange")
+        }
+    }
+
+    var chooseReslut = ''
+
+    function hideWordInfo() {
+        $('#definition').hide();
+    }
+
+    function ChooseGaozhong() {
+        $('#GaoZhong_ing').show();
+        chooseReslut = 'GaoZhong';
+        $('#KaoYan_ing').hide();
+        $('#CET4_ing').hide();
+        $('#CET6_ing').hide();
+        console.log(chooseReslut)
+
+    }
+
+    function ChooseKaoYan() {
+        chooseReslut = 'KaoYan';
+        $('#GaoZhong_ing').hide();
+        $('#KaoYan_ing').show();
+        $('#CET4_ing').hide();
+        $('#CET6_ing').hide();
+        console.log(chooseReslut)
+    }
+
+    function ChooseCET6() {
+        chooseReslut = 'CET6'
+        $('#GaoZhong_ing').hide();
+        $('#KaoYan_ing').hide();
+        $('#CET4_ing').hide();
+        $('#CET6_ing').show();
+        console.log(chooseReslut)
+    }
+
+    function ChooseCET4() {
+        chooseReslut = 'CET4';
+        $('#GaoZhong_ing').hide();
+        $('#KaoYan_ing').hide();
+        $('#CET4_ing').show();
+        $('#CET6_ing').hide();
+        console.log(chooseReslut);
+    }
+
+    function one5() {
+        document.getElementById("one").setAttribute("class", "is-button is-bg is-bg-orange")
+        document.getElementById("two").setAttribute("class", "is-button is-bg is-dark")
+        document.getElementById("three").setAttribute("class", "is-button is-bg is-dark")
+        document.getElementById("four").setAttribute("class", "is-button is-bg is-dark")
+        groupConut = 10
+    }
+
+    function two5() {
+        document.getElementById("one").setAttribute("class", "is-button is-bg is-dark")
+        document.getElementById("two").setAttribute("class", "is-button is-bg is-bg-orange")
+        document.getElementById("three").setAttribute("class", "is-button is-bg is-dark")
+        document.getElementById("four").setAttribute("class", "is-button is-bg is-dark")
+        groupConut = 15
+    }
+
+    function three5() {
+        document.getElementById("one").setAttribute("class", "is-button is-bg is-dark")
+        document.getElementById("two").setAttribute("class", "is-button is-bg is-dark")
+        document.getElementById("three").setAttribute("class", "is-button is-bg is-bg-orange")
+        document.getElementById("four").setAttribute("class", "is-button is-bg is-dark")
+        groupConut = 20
+    }
+
+    function four5() {
+        document.getElementById("one").setAttribute("class", "is-button is-bg is-dark")
+        document.getElementById("two").setAttribute("class", "is-button is-bg is-dark")
+        document.getElementById("three").setAttribute("class", "is-button is-bg is-dark")
+        document.getElementById("four").setAttribute("class", "is-button is-bg is-bg-orange")
+        groupConut = 25
+    }
+
+    function sendChooseReslut() {
+        $.ajax({
+            url: '/studentFunction/chanceInfo?level=' + chooseReslut + '&count=' + groupConut,
+            method: 'get',
+            dataType: 'json',
+            success: function (response) {
+                if (response.success) {
+                    alert(response.data);
+                    hideWordInfo();
+                } else {
+                    alert("修改失败！")
+                }
+            }
+        })
+    }
+
+
 </script>
 <iframe id="google_esf" name="google_esf"
         src="https://googleads.g.doubleclick.net/pagead/html/r20231207/r20190131/zrt_lookup_fy2021.html"

@@ -18,6 +18,8 @@ public class UnknowWord {
     /*单词Id
      * */
 
+    @TableId(value = "id",type = IdType.AUTO)
+    private int id;
     private Integer wordId;
 
     /*学生id

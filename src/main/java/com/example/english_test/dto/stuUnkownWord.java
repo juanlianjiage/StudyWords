@@ -23,4 +23,9 @@ public class stuUnkownWord {
     /*单词等级
      * */
     private String wordLevel;
+    /*例句
+     * */
+    private String wordExample;
+
+    private String translation;
 }

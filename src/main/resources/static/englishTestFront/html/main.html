@@ -6,43 +6,58 @@
     <title>主页面</title>
     <link rel="stylesheet" type="text/css" href="/englishTestFront/css/style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </head>
 <body bgcolor="#363636">
+<div style="position: absolute; left: 1rem; top: 1rem; background: rgba(240, 248, 255, 0);"><a href="javascript:void(history.back())" class="center" style="padding: 0.8rem; border-radius: 10px; flex-direction: row;">
+    <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <path d="M482.7 249.9V106.1c0-37.4-45.3-56.2-71.7-29.7L140.3 347c-16.4 16.4-16.4 43 0 59.4L410.9 677c26.5 26.5 71.7 7.7 71.7-29.7v-155c96.1-0.3 271.5-10.7 271.5 227.7 0 118.1-92.8 216.8-216 239.6 198.1-24.4 326-236 326-361.9 0.1-292.6-309.4-346.3-381.4-347.8z"></path>
+    </svg>
+</a></div>
+<div style="position: absolute; right: 1rem; top: 1rem; background: rgba(240, 248, 255, 0);"><p id="count"></p></div>
+<!--<div style="display: flex; justify-content: right; position: absolute; top: 1rem; right: 1rem; background: rgba(240, 248, 255, 0);"><a><svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M851.428571 755.428571q0 22.857143-16 38.857143l-77.714285 77.714286q-16 16-38.857143 16t-38.857143-16l-168-168-168 168q-16 16-38.857143 16t-38.857143-16l-77.714285-77.714286q-16-16-16-38.857143t16-38.857142l168-168-168-168q-16-16-16-38.857143t16-38.857143l77.714285-77.714286q16-16 38.857143-16t38.857143 16l168 168 168-168q16-16 38.857143-16t38.857143 16l77.714285 77.714286q16 16 16 38.857143t-16 38.857143l-168 168 168 168q16 16 16 38.857142z"></path></svg></a></div>-->
 <div id="word-box">
     <h1 id="word">单词</h1>
     <video controls autoplay name="media" id="sourcehttp">
-        <source  src="#" type="audio/mp3">
+        <source src="#" type="audio/mp3">
     </video>
 
     <span id="definition" style="text-align: center;"></span>
 
     <div style="">
-        <button class="is-button is-bg is-dark" style="width: 98px; margin-left: 5px; padding: 0.3rem 0.8rem; " id="dont-know">不认识
+        <button class="is-button is-bg is-dark" style="width: 98px; margin-left: 5px; padding: 0.3rem 0.8rem; "
+                id="dont-know">不认识
         </button>
-        <button class="is-button is-bg is-dark" style="width: 98px; margin-left: 5px; padding: 0.3rem 0.8rem;"id="know">认识
+        <button class="is-button is-bg is-dark" style="width: 98px; margin-left: 5px; padding: 0.3rem 0.8rem;"
+                id="know">认识
         </button>
-        <button class="is-button is-bg is-dark" style="width: 98px; margin-left: 5px; padding: 0.3rem 0.8rem;"id="collect">添加生词本
+        <button class="is-button is-bg is-dark" style="width: 98px; margin-left: 5px; padding: 0.3rem 0.8rem;"
+                id="collect">添加生词本
         </button>
-        <button class="is-button is-bg is-dark" style="width: 98px; margin-left: 5px; padding: 0.3rem 0.8rem; " type="button" id="startTestButton" >下一个
+        <button class="is-button is-bg is-dark" style="width: 98px; margin-left: 5px; padding: 0.3rem 0.8rem; "
+                type="button" id="startTestButton">下一个
         </button>
     </div>
 </div>
 <script>
     $(document).ready(function () {
         var wordData = []; // 存储从后端获取的单词数据
-        var UnKnowWord={"wordId":null};
+        var UnKnowWord = {"wordId": null};
+
         function getvideo(word) {
 
-            $("#sourcehttp").attr("src","/englishTestFront/usa/"+word+".mp3")
-            var sourcehttp=$("#sourcehttp").get('0');
+            $("#sourcehttp").attr("src", "/englishTestFront/usa/" + word + ".mp3")
+            var sourcehttp = $("#sourcehttp").get('0');
             sourcehttp.load()
             //$("#sourcehttp").src="https://dict.youdao.com/dictvoice?audio="+wordData[currentIndex].wordSpell+"&type=2"
             // 隐藏词义
 
         }
+
         // 获取单词数据并保存
         function getWordData() {
             if (currentIndex < wordData.length) {
+                $('#count').text(currentIndex + 1 + ' / ' + wordData.length)
                 $('#word').text(wordData[currentIndex].wordSpell);
                 getvideo(wordData[currentIndex].wordSpell);
                 currentIndex++;
@@ -50,6 +65,13 @@
                 $('#definition').hide();
             } else {
                 console.log('没有更多单词数据了');
+                var jsonData = JSON.stringify(wordData);
+                console.log("将要发送的数据样式：");
+                console.log(jsonData);
+
+                // 使用LocalStorage将数据保存在本地
+                localStorage.setItem('wordData', jsonData);
+
                 window.location.href = 'expressword.html';
                 $('#word').text(''); // 如果没有更多数据，清空单词显示
             }
@@ -64,7 +86,7 @@
         // 获取后端数据并保存
         function fetchAllWordData() {
             $.ajax({
-                url: '/redis/student/cet4Study',
+                url: '/student/cet4Study',
                 method: 'GET',
                 dataType: 'json',
                 success: function (response) {
@@ -89,9 +111,10 @@
         function saveUnknownWord() {
             if (currentIndex <= wordData.length) {
 
-                UnKnowWord.wordId=wordData[currentIndex - 1].wordId
+                UnKnowWord.wordId = wordData[currentIndex - 1].wordId
             }
         }
+
         $('#collect').on('click', function () {
             showDefinition(); // 显示词义
             saveUnknownWord();
@@ -101,14 +124,16 @@
         });
         // 初始化页面，获取所有数据块
         fetchAllWordData();
+
         // 显示词义
         function showDefinition() {
             if (currentIndex <= wordData.length) {
-                $('#definition').text( wordData[currentIndex - 1].wordMeaning);
+                $('#definition').text(wordData[currentIndex - 1].wordMeaning);
                 $('#definition').show();
 
             }
         }
+
         // 添加点击事件处理程序以显示词义
         $('#dont-know').on('click', function () {
             showDefinition(); // 显示词义
@@ -121,7 +146,6 @@
             getWordData(); // 获取下一个单词
             $('#definition').hide(); // 隐藏词义
         });
-
 
 
         function sendUnKonwWord() {

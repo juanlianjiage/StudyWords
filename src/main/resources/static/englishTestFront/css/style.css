@@ -3,7 +3,7 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #61f1ec;
+  background-color: #464850;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -69,7 +69,12 @@ body {
   text-align: center;
   text-decoration: none;
 }
-
+h1{
+  color: #fff;
+}
+span{
+  color: #fff;
+}
 /* 响应式样式 */
 @media (max-width: 768px) {
   .word-box {

@@ -16,7 +16,9 @@ public class UserDTO {
     private LocalDateTime loginTime;
     private String onlineTime;
     private LocalDateTime latestLoginTime;
-    private int review;
+    private int reviewed;
+    private int todayNeedReview;
     private String level;
     private int studyed;
+    private int count;
 }

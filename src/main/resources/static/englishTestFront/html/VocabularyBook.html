@@ -11,6 +11,8 @@
 
     <link href="/englishTestFront/css/vendor.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
     <style>.word {
         font-size: large !important;
         font-weight: inherit;
@@ -395,18 +397,6 @@
         background: rgba(72, 199, 142, .9)
     }
 
-    .color_10 {
-        background: #48c78e
-    }
-
-    .keyboard {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        margin-top: 1rem;
-        padding: 10px;
-        border-radius: 10px
-    }
 
     .keyboard .row {
         list-style: none;
@@ -423,9 +413,6 @@
         width: 100%
     }
 
-    #back {
-        padding: 0 6px
-    }
 
     .theme-dark .key-color {
         background-color: #464850;
@@ -437,64 +424,6 @@
         background-color: #fff
     }
 
-    .selected {
-        background-color: transparent;
-        -webkit-animation: vibrate-1 .3s linear infinite both;
-        animation: vibrate-1 .3s linear infinite both
-    }
-
-    .v-enter-active, .v-leave-active {
-        transition: opacity .1s ease
-    }
-
-    .v-enter-from, .v-leave-to {
-        opacity: 0
-    }
-
-    .slide-up-enter-active, .slide-up-leave-active {
-        transition: all .25s ease-out
-    }
-
-    .slide-up-enter-from {
-        opacity: 0;
-        transform: translateY(30px)
-    }
-
-    .slide-up-leave-to {
-        opacity: 0;
-        transform: translateY(-30px)
-    }
-
-    .is-tag {
-        background: #918f8f57;
-        border-radius: 10px;
-        padding: 0 10px;
-        font-weight: lighter;
-        height: 30px;
-        display: inline-block;
-        line-height: 30px
-    }
-
-    .settings-modal-mask {
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: #464850bf;
-        padding: 1rem;
-        margin: 0;
-        overflow-y: auto;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 99
-    }
-
-    .settings-modal {
-        border-radius: 8px;
-        position: relative
-    }
 
     .settings-modal .is-title {
         font-size: 1.3rem;
@@ -517,26 +446,6 @@
         padding-top: 1rem
     }
 
-    .voice-interval-box {
-        display: flex;
-        justify-content: start;
-        align-items: center;
-        flex-wrap: wrap
-    }
-
-    .voice-interval {
-        width: 53px;
-        height: 33px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 10px;
-        margin: 3px
-    }
-
-    .voice-interval-selected {
-        font-weight: 700
-    }
 
     .theme-dark .voice-interval-selected {
         background: var(--dark-theme-color1);
@@ -555,9 +464,6 @@
         }
     }
 
-    .heart {
-        animation: breathe 2s linear infinite
-    }
 
     @keyframes breathe {
         0% {
@@ -571,27 +477,6 @@
         }
     }
 
-    .spinner-box {
-        width: 300px;
-        height: 100px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: transparent
-    }
-
-    .pulse-container {
-        width: 120px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center
-    }
-
-    .pulse-bubble {
-        width: 20px;
-        height: 20px;
-        border-radius: 50%
-    }
 
     .theme-dark .pulse-bubble {
         background-color: var(--dark-theme-color)
@@ -601,17 +486,6 @@
         background-color: var(--light-theme-color)
     }
 
-    .pulse-bubble-1 {
-        animation: pulse .4s ease 0s infinite alternate
-    }
-
-    .pulse-bubble-2 {
-        animation: pulse .4s ease .2s infinite alternate
-    }
-
-    .pulse-bubble-3 {
-        animation: pulse .4s ease .4s infinite alternate
-    }
 
     @keyframes pulse {
         from {
@@ -624,22 +498,6 @@
         }
     }
 
-    .exam-meaning {
-        border-radius: var(--radius);
-        border: 1px solid;
-        margin: .5rem;
-        padding: .8rem;
-        cursor: pointer;
-        font-size: .8rem
-    }
-
-    .exam-meaning-hidden {
-        visibility: hidden
-    }
-
-    .exam-meaning-select {
-        background: coral
-    }
 
     .exam-type-select-mask {
         position: fixed;
@@ -651,13 +509,7 @@
         z-index: 99
     }
 
-    .exam-meanings-prompt {
-        border-bottom: 2px dashed coral
-    }
-
-    .exam-prompt-button-hidden {
-        color: #90909073
-    }</style>
+    </style>
     <script id="src:https:pagead2googlesyndicationcompageadjsadsbygooglejs?client=ca-pub-6596727505190761"
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6596727505190761"
             type="text/javascript" async="" data-checked-head="true"></script>
@@ -728,31 +580,7 @@
     </section>
     <section>
         <div class="container is-max-desktop is-flex is-list">
-            <div class="is-header is-shadow"
-                 style="justify-content: space-between; border-radius: 10px; margin-bottom: 1rem; flex-direction: column;">
-                <div style="justify-content: space-between; padding: 1rem; border-radius: 10px; flex-direction: row; display: flex;">
-                    <div style="display: flex; justify-content: center; align-items: center; padding: 0px 0.8rem;"><a
-                            style="display: flex;">
-                        <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M511.9935 699.733c-102.4 0-187.733-85.333-187.733-187.733s85.333-187.733 187.733-187.733S699.7265 409.6 699.7265 512s-85.333 187.733-187.733 187.733z m472.177-250.311c-5.689-22.756-22.756-39.822-45.511-45.511l-11.378-5.689c-34.133-11.378-68.267-34.133-91.022-68.267s-22.756-73.956-17.067-113.778l5.689-11.378c5.689-17.067 0-45.511-17.067-62.578 0 0-17.067-11.378-56.889-34.133s-56.889-28.444-56.889-28.444c-22.756-5.689-45.511 0-62.578 17.067l-11.378 11.378c-28.444 22.756-68.267 39.822-108.089 39.822s-79.644-17.067-108.089-39.822l-5.689-17.067c-17.067-11.378-45.511-22.756-62.578-11.378 0 0-17.067 5.689-56.889 28.444s-56.889 34.133-56.889 34.133c-17.067 17.067-28.444 39.822-22.756 62.578l5.689 17.067c11.378 34.133 5.689 73.956-17.067 113.778-22.756 28.444-51.2 51.2-91.022 62.578l-11.378 5.689c-22.756 0-39.822 22.756-45.511 45.511 0 0-5.689 17.067-5.689 62.578s5.689 62.578 5.689 62.578c5.689 22.756 22.756 39.822 45.511 45.511l11.378 5.689c34.133 11.378 68.267 34.133 91.022 68.267s22.756 73.956 17.067 113.778l-5.689 11.378c-5.689 17.067 0 45.511 17.067 62.578 0 0 17.067 11.378 56.889 34.133s56.889 28.444 56.889 28.444c22.756 5.689 45.511 0 62.578-17.067l11.378-11.378c28.444-28.444 62.578-39.822 108.089-39.822 39.822 0 79.644 17.067 108.089 39.822l11.378 11.378c17.067 17.067 39.822 22.756 62.578 17.067 0 0 17.067-5.689 56.889-28.444s56.889-34.133 56.889-34.133 22.756-39.822 17.067-62.578l-5.689-17.067c-11.378-34.133-5.689-73.956 17.067-108.089s51.2-56.889 91.022-68.267l17.067-5.689c22.756-5.689 39.822-22.756 45.511-45.511 0 0 5.689-17.067 5.689-62.578-5.689-45.511-11.378-62.578-11.378-62.578z"></path>
-                        </svg>
-                    </a></div>
-                    <div style="display: flex;">
-                        <button class="is-button is-bg is-dark"
-                                style="width: 58px; margin-left: 5px; padding: 0.3rem 0.8rem;">单词
-                        </button>
-                        <button class="is-button is-bg is-dark"
-                                style="width: 58px; margin-left: 5px; padding: 0.3rem 0.8rem;">音标
-                        </button>
-                        <button class="is-button is-bg is-dark"
-                                style="width: 58px; margin-left: 5px; padding: 0.3rem 0.8rem;">释义
-                        </button>
-                        <button class="is-button is-bg is-dark"
-                                style="width: 58px; margin-left: 5px; padding: 0.3rem 0.8rem;">操作
-                        </button>
-                    </div>
-                </div>
-            </div>
+
             <div class="is-body is-shadow">
                 <table class="table is-content" style="width: 100%; min-height: 1rem;">
                     <thead style="text-align: left;">
@@ -769,7 +597,8 @@
                                     <button class="is-button is-bg" disabled=""
                                             style="margin: 10px; border: 1px solid;">上一页
                                     </button>
-                                    <button class="is-button is-bg" style="margin: 10px; border: 1px solid;">开始复习</button>
+                                    <button class="is-button is-bg" style="margin: 10px; border: 1px solid;">开始复习
+                                    </button>
                                     <button class="is-button is-bg" style="margin: 10px; border: 1px solid;">下一页
                                     </button>
                                 </div>
@@ -778,20 +607,7 @@
                     </tr>
                     </tfoot>
                     <tbody id="111">
-                    <tr>
-                        <th class="index color_0">1</th>
-                        <td><strong class="word"><a href="javascript:void(0);" title="city"
-                                                    class="">abruptly</a></strong><br><span class="phonetic"
-                                                                                            style="display: block;">美 / əˈbrʌptli / </span><span
-                                class="phonetic" style="display: block;">英 / əˈbrʌptli /</span></td>
-                        <td class="explain" style="overflow-wrap: break-word;"><p><i class="is-pos">adv.</i>&nbsp;
-                            <span>不客气地;&nbsp;</span><span>唐突地;&nbsp;</span><span>突然地;&nbsp;</span><span>粗暴地;&nbsp;</span><span>猝然;&nbsp;</span><span>出其不意地;&nbsp;</span>
-                        </p></td><!---->
-                        <td style="display: none;">
-                            <audio id="play_audio_abruptly" src="https://dict.youdao.com/dictvoice?audio=abruptly"
-                                   alt="error" preload="none" referrerpolicy="no-referrer"></audio>
-                        </td>
-                    </tr>
+
 
                     </tbody>
                 </table>
@@ -821,34 +637,53 @@
             操作
         </div>
     </section>
-    <div class="columns detail-modal-mask" style="user-select: text; display: none;">
+    <div class="columns detail-modal-mask" style="user-select: text;" id="definition">
         <div class="detail-modal-content">
             <div class="card column is-half-desktop is-full-touch is-detail is-content is-card-line"
                  onclick="window.event.stopPropagation();">
                 <div class="is-header">
-                    <button class="delete" style="position: absolute; top: 0.5rem; right: 0.5rem;"></button>
+                    <button class="delete" onclick="hideWordInfo()"
+                            style="position: absolute; top: 0.5rem; right: 0.5rem;"></button>
                 </div>
                 <div class="is-body">
+
                     <div class="is-content"><h6 class="is-text word"><span
-                            style="text-transform: capitalize; font-size: 2rem !important;"></span></h6>
-                        <p class="phonetic"><!---->&nbsp;&nbsp;&nbsp; <!----><a href="javascript:void(0);"
-                                                                                style="width: 26px; height: 26px;">
+                            style="text-transform: capitalize; font-size: 2rem !important;" id="wordInfoSpell"></span>
+                    </h6>
+                        <p class="phonetic"><span class="phonetic" style="line-height: 26px;" id="wordphonetic1"></span>&nbsp;&nbsp;&nbsp;
+                            <span class="phonetic" style="line-height: 26px;" id="wordphonetic2"></span>
+
+                            <a href="javascript:void(0);" style="width: 26px; height: 26px;">
+
+                            </a>
+                        <div><p class="is-content" onclick="playaudio()">
+
+                            <audio id="wordaudio"
+                                     autoplay></audio>
                             <svg t="1661960917737" class="icon" viewBox="0 0 1024 1024" version="1.1"
                                  xmlns="http://www.w3.org/2000/svg" p-id="15734" width="128" height="128">
                                 <path d="M512 149.333333c200.298667 0 362.666667 162.368 362.666667 362.666667s-162.368 362.666667-362.666667 362.666667S149.333333 712.298667 149.333333 512 311.701333 149.333333 512 149.333333z m-50.56 234.666667c-19.2 0-34.773333 15.573333-34.773333 34.773333v182.997334a34.773333 34.773333 0 0 0 53.546666 29.248l143.808-92.394667a34.773333 34.773333 0 0 0-0.256-58.666667l-143.808-90.602666a34.773333 34.773333 0 0 0-18.538666-5.354667z"
                                       p-id="15735"></path>
-                            </svg>
-                        </a></p>
+                            </svg></p>
+
+
+                        </div>
+
+
+
+                        </p>
                         <h6 class="is-text">[ 释义 ]</h6>
-                        <div><!----></div>
-                        <h6 class="is-text">[ 英英互译 ]</h6>
-                        <div><!----></div>
+                        <div><p style="display: block;"><i class="is-pos"></i> <span id="wordMeaning"></span>;
+                        </p></div><!---->
+                        <div></div>
                     </div>
                 </div>
-            </div><!----><!---->
+            </div><!---->
             <div class="card column is-half-desktop is-full-touch is-detail is-content is-card-line"
                  onclick="window.event.stopPropagation();"><h6 class="is-text">[ 例句 ]</h6>
-                <div><!----><p>暂无更多例句....</p></div>
+                <div><p id="wordExample"></p>
+                    <p id="translation"></p>
+                </div>
             </div>
             <div class="card column is-half-desktop is-full-touch is-detail is-content is-card-line"
                  onclick="window.event.stopPropagation();">
@@ -857,6 +692,7 @@
                         <path d="M509.606998 104.904235c-24.043602 0-45.922912 13.226233-56.177464 33.95637L356.189863 336.302419l-223.674269 32.54216c-22.983457 3.304256-42.100864 18.718317-49.481971 39.659255-7.381108 21.048385-1.812275 44.23241 14.431687 60.033281l163.916257 160.125931-38.011732 222.016513c-3.868097 22.408359 6.03239 44.819788 25.458835 57.94676 10.69662 7.116071 23.204491 10.784624 35.757388 10.784624 10.298554 0 20.663622-2.475378 30.055526-7.337105l194.987926-102.7205L704.662463 912.072815c9.369392 4.861728 19.712971 7.337105 29.990035 7.337105 12.57541 0 25.082258-3.668553 35.778878-10.784624 19.426445-13.126972 29.305443-35.538401 25.460882-57.94676l-38.012755-222.016513 163.937746-160.125931c16.22145-15.812127 21.810748-38.984896 14.408151-60.033281-7.402597-20.940938-26.51898-36.353976-49.503461-39.659255L663.04767 336.302419l-97.240695-197.441814C555.619962 118.131491 533.695626 104.904235 509.606998 104.904235L509.606998 104.904235z"></path>
                     </svg>
                     <span style="margin-left: 5px;">收藏</span></a><a target="_blank" class="card-footer-item"
+                                                                    href="https://www.bing.com/dict/search?q=abruptly"
                                                                     style="padding: 0px;">
                     <svg t="1661782900709" class="icon" viewBox="0 0 1024 1024" version="1.1"
                          xmlns="http://www.w3.org/2000/svg" width="108" height="108">
@@ -944,47 +780,91 @@
 <iframe src="https://www.google.com/recaptcha/api2/aframe" width="0" height="0" style="display: none;"></iframe>
 </body>
 <script>
+    function playaudio() {
 
-    var str='';
-    var wordListIndex=1
+        const wordaudio = document.getElementById("wordaudio");
+        wordaudio.play();
+    }
+
+    $('#definition').hide();
+    var str = '';
+    var wordListIndex = 1
+    var wordData = [];
     $(document).ready(function () {
         $.ajax({
             url: '/studentFunction/unkonwlist',
             method: 'post',
             dataType: 'json',
             success: function (response) {
-                wordData=response.data;
-                const review=document.getElementById("111");
+                wordData = response.data;
+                const review = document.getElementById("111");
 
                 wordData.forEach(e => {
-                    str+=`<tr>
+                    str += `<tr>
                         <th class="index color_0">${wordListIndex}</th>
                         <td><strong class="word"><a href="javascript:void(0);" title="city"
-                                                    class="">${e.wordSpell}</a><br><span class="phonetic"
-                                                                                            style="display: block;"></span><span
-                                class="phonetic" style="display: block;"></span></td>
+                                                    id=${wordListIndex} onclick="showWordInfo(this);">${e.wordSpell}</a><br><span class="phonetic"
+                                                                                            style="display: block;">美：${e.wordPhonetic.match(/([/].+?[/])?/g)[0]}</span>
+                                                                                            <span class="phonetic"
+                                                                                            style="display: block;">英：${e.wordPhonetic.match(/([/].+?[/])?/g)[1]}</span>
+                                                                                            </td>
                         <td class="explain" style="overflow-wrap: break-word;"><p><i class="is-pos">${e.wordMeaning}</i>
                         </p></td><!---->
                          <td>
-                        <div><a>移除</a></div>
+                        <div> <button class="is-button is-bg is-dark" onclick="removeUnkonwWords(document.getElementById(${wordListIndex}));"
+                                style="width: 58px; margin-left: 5px; padding: 0.3rem 0.8rem;">移除
+                        </button></div>
                     </td>
-                        <td style="display: none;">
-                            <audio id="play_audio_abruptly" src="https://dict.youdao.com/dictvoice?audio=abruptly"
-                                   alt="error" preload="none" referrerpolicy="no-referrer"></audio>
-                        </td>
+
                     </tr>`
                     // str+= `<tr><th class="index color_3"></th><td><strong class="word"><a href="javascript:void(0);" title="city" class="">${e[0].wordSpell}</a><><br><span class="phonetic" style="display: block;"> </span><span class="phonetic" style="display: block;"></span></td><td class="explain" style="overflow-wrap: break-word;"><p><i class="is-pos">${e[0].wordMeaning}</i></p></td><!----><td style="display: none;"><audio id="play_audio_abruptly" src="https://dict.youdao.com/dictvoice?audio=abruptly" alt="error" preload="none" referrerpolicy="no-referrer"></audio></td></tr>`
 
-                    wordListIndex+=1;
+                    wordListIndex += 1;
                 });
-                review.innerHTML=str
-                console.log(str)
+                review.innerHTML = str
+
                 ;
             }
-        })});
+        })
+    });
+
+    function removeUnkonwWords(elem) {
 
 
 
+        var a =  wordData[elem.id - 1].wordSpell
+        console.log(a);
+        $.ajax({
+            url: "/studentFunction/removeUnkonwWord?word=" +a,
+            method: 'get',
+            success: function (response) {
+                alert(response.data);
+                location.reload();
+            }
+        })
+    }
+
+    $('#wordspell').on('click', function () {
+
+    });
+
+    function showWordInfo(elem) {
+
+
+        console.log(wordData[elem.id - 1].wordPhonetic.match(/([/].+?[/])?/g))
+        $('#wordInfoSpell').text(elem.innerText)
+        $('#wordphonetic1').text('美：' + wordData[elem.id - 1].wordPhonetic.match(/([/].+?[/])?/g)[0])
+        $('#wordphonetic2').text('英：' + wordData[elem.id - 1].wordPhonetic.match(/([/].+?[/])?/g)[1])
+        $('#wordMeaning').text(wordData[elem.id - 1].wordMeaning)
+        $('#wordExample').text(wordData[elem.id - 1].wordExample)
+        $('#translation').text(wordData[elem.id - 1].translation)
+        $('#wordaudio').attr('src',"https://dict.youdao.com/dictvoice?audio=" +elem.innerText)
+        $('#definition').show();
+    }
+
+    function hideWordInfo() {
+        $('#definition').hide();
+    }
 </script>
 <iframe id="google_esf" name="google_esf"
         src="https://googleads.g.doubleclick.net/pagead/html/r20231207/r20190131/zrt_lookup_fy2021.html"

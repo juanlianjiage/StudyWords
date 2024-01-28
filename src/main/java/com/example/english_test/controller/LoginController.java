@@ -50,12 +50,12 @@ public class LoginController {
             {
                 Student one = studentService.getOne(queryWrapper);
 
-                session.setAttribute("user",one);
+
                 UserDTO userDTO = BeanUtil.copyProperties(one, UserDTO.class);
                 userDTO.setLoginTime(LocalDateTime.now());
                 userDTO.setLatestLoginTime(LocalDateTime.now());
                 USerHolder.saveUSer(userDTO);
-
+                session.setAttribute("user",userDTO);
 
                 return Result.ok("登陆成功！");
             }

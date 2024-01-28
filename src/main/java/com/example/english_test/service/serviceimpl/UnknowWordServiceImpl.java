@@ -27,14 +27,23 @@ public class UnknowWordServiceImpl extends ServiceImpl<UnknowWordMapper,UnknowWo
             //获取用户id
             String studentId = USerHolder.getUser().getStudentId();
             Integer wordId = unknows.getWordId();
+        LambdaQueryWrapper<UnknowWord> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(UnknowWord::getWordId,wordId);
+        UnknowWord one = getOne(queryWrapper);
+        if (one==null)
+        {
             UnknowWord unknowWord = new UnknowWord();
             unknowWord.setWordId(wordId);
             unknowWord.setStudentId(studentId);
             unknowWord.setAddTime(LocalDateTime.now());
             unknowWord.setBrowseTimes(0);
             //TODO 查询用户有没有添加过该单词
-
             save(unknowWord);
-        return Result.ok("添加成功！");
+            return Result.ok("添加成功！");
+        }
+        else {
+            return Result.ok("已添加该单词");
+        }
+
     }
 }

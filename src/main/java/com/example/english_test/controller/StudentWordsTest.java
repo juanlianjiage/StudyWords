@@ -117,7 +117,7 @@ public class StudentWordsTest {
         }
 
         //更新session
-        Student student = (Student) session.getAttribute("user");
+        UserDTO student = (UserDTO) session.getAttribute("user");
         session.removeAttribute("user");
         student.setStudyed(user.getStudyed()+20);
         session.setAttribute("user",student);

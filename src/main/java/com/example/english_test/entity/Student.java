@@ -19,4 +19,5 @@ public class Student {
     private String password;
     private String level;
     private int studyed;
+    private int count;
 }

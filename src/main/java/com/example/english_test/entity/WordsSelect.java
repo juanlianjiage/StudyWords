@@ -17,19 +17,53 @@ public class WordsSelect {
 
     public String wordMeaning;
 
+    public String wordPhonetic;
+
+    public String getWordExample() {
+        return wordExample;
+    }
+
+    public void setWordExample(String wordExample) {
+        this.wordExample = wordExample;
+    }
+
+    public String getTranslation() {
+        return translation;
+    }
+
+    public void setTranslation(String translation) {
+        this.translation = translation;
+    }
+
+    /*例句
+     * */
+    private String wordExample;
+
+    private String translation;
+    public String getWordPhonetic() {
+        return wordPhonetic;
+    }
+
+    public void setWordPhonetic(String wordPhonetic) {
+        this.wordPhonetic = wordPhonetic;
+    }
 
     /*三个错误词意一个正确词意
     * */
     public List<String> errorMeaning;
 
+    public WordsSelect(Integer wordId, String wordSpell, String wordMeaning, String wordPhonetic, List<String> errorMeaning) {
+        this.wordId = wordId;
+        this.wordSpell = wordSpell;
+        this.wordMeaning = wordMeaning;
+        this.wordPhonetic = wordPhonetic;
+        this.errorMeaning = errorMeaning;
+    }
+
     public WordsSelect() {
     }
 
-    public WordsSelect(String wordSpell, String wordMeaning, List<String> errorMeaning) {
-        this.wordSpell = wordSpell;
-        this.wordMeaning = wordMeaning;
-        this.errorMeaning = errorMeaning;
-    }
+
 
     public String getWordSpell() {
         return wordSpell;
@@ -69,6 +103,7 @@ public class WordsSelect {
                 "wordId=" + wordId +
                 ", wordSpell='" + wordSpell + '\'' +
                 ", wordMeaning='" + wordMeaning + '\'' +
+                ", wordPhonetic='" + wordPhonetic + '\'' +
                 ", errorMeaning=" + errorMeaning +
                 '}';
     }
